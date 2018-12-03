@@ -2,7 +2,7 @@
 % Please edit documentation in R/longidom.R
 \name{longidom}
 \alias{longidom}
-\title{Infer latent hierarchy from longitudinal data using prior information}
+\title{Infer latent hierarchy from longitudinal data incorporating prior information}
 \usage{
 longidom(contestants, convention, n, shuffles,
   require.corroboration = FALSE, initial.ranks, interactions)
@@ -86,13 +86,13 @@ Produces a dataframe with columnes:
          equal higher rank.}
          \item{stan.rank}{Rank of contestant standardized for group size.
          Values range from 1 (highest rank) to -1 (lowest rank).}
-         \item{old.rank}{Identity of contestants arranged in the order they
+         \item{old.order}{Identity of contestants arranged in the order they
          were in before updating the order based on observations from current
          study period.}}
 }
 \description{
 Implements the method described in Strauss & Holekamp (in revision). For each
-study period, ranks are inferred as modifications of the ranks from the previous
+study period, ranks are inferred as modifications of theranks from the previous
 study period. First, new contestants are added according to the convention specified
 by the user, and emigrated/dead contestants are removed. Then, matrix reordering is used
 to change the position of contestants for whom data from the current study period

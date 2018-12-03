@@ -1,7 +1,7 @@
 #' Infer latent hierarchy from longitudinal data incorporating prior information
 #' 
 #' Implements the method described in Strauss & Holekamp (in revision). For each
-#' study period, ranks are inferred as modifications of the ranks from the previous
+#' study period, ranks are inferred as modifications of theranks from the previous
 #' study period. First, new contestants are added according to the convention specified
 #' by the user, and emigrated/dead contestants are removed. Then, matrix reordering is used
 #' to change the position of contestants for whom data from the current study period
