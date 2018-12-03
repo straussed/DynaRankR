@@ -89,7 +89,7 @@
 #'          study period.}}
 #' 
 #' @references Strauss & Holekamp (in revision). Journal of Animal Ecology.
-#' 
+#' @import dplyr
 #' @export
 #' 
 longidom <- function(contestants, convention, n, shuffles, require.corroboration = FALSE, 
