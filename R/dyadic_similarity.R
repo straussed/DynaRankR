@@ -1,0 +1,43 @@
+#' Compare two rank orderings 
+#' 
+#' This function compares two rank orderings. For an order of length \emph{n} 
+#'      there are \emph{n choose 2} dyadic relationships implied by that order. 
+#'      For example, the order {a, b, c} implies that a > b, a  > c, and b > c.
+#'      The dyadic similarity between two orders is the proportion of implied 
+#'      dyadic relationship that are shared by the two orders. 
+#' 
+#' @param order1 The first rank ordering to be compared. Alternatively, this can
+#'               be supplied as an interaction matrix.
+#' @param order2 The second rank ordering to be compared. Alternatively, this can
+#'               be supplied as an interaction matrix.
+#' 
+#' @return The proportion of dyadic relationship that are shared by the two orders
+#'         This value is 1 if the orders are identical and 0 if the orders are
+#'         exact opposites. 
+#' 
+#' @export
+#' 
+dyadic_similarity <- function(order1, order2){
+  if(class(order1) == 'matrix'){
+    ##Make sure that matrix supplied is square with identical orders
+    if(any(dimnames(order1)[[2]] != dimnames(order1)[[1]])){
+      stop('matrix supplied has different individuals in rows and columns')
+    }
+    order1 <- make_full_matrix(dimnames(order1)[[1]])
+  }else{order1 <- make_full_matrix(order1)}
+  if(class(order2) == 'matrix'){
+    if(any(dimnames(order2)[[2]] != dimnames(order2)[[1]])){
+      stop('matrix supplied has different individuals in rows and columns')
+    }
+    order2 <- make_full_matrix(dimnames(order2)[[1]])
+  }else{order2 <- make_full_matrix(order2)}
+  
+  ##Make sure all individuals are shared by the two orders
+  if(any(!dimnames(order1)[[1]] %in% dimnames(order2)[[1]]) | 
+         any(!dimnames(order2)[[1]] %in% dimnames(order1)[[1]])){
+    stop("can\'t compare orders with non-shared individuals")
+  }
+  
+  num_same <- sum(order2[dimnames(order1)[[1]], dimnames(order1)[[1]]] == order1) - nrow(order1)
+  return((num_same/(length(order1)-nrow(order1))))
+}

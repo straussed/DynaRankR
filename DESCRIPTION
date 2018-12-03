@@ -1,0 +1,15 @@
+Package: LongiDom
+Title: Inferring Longitudinal Dominance Hierarchies
+Version: 0.1
+Authors@R: 
+    person(given = "Eli",
+           family = "Strauss",
+           role = c("aut", "cre"),
+           email = "straussed@gmail.com")
+Description: 
+License: What license it uses
+Encoding: UTF-8
+RoxygenNote: 6.1.0.9000
+LazyData: true
+Imports:
+   dplyr
