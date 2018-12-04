@@ -78,5 +78,5 @@ i_dist <- function(mat, n, shuffles, future_intx, current.period){
   }
   #After doing all iterations, select the best order from the final orders list
   #using select_best_mats function
-  return(select_best_mats(output = unique(final_orders), initial_matrix = orig.full.mat, future_intx = future_intx, current.period = current.period))
+  return(select_best_mats(output = unique(final_orders), initial_matrix = orig.full.mat, future_intx = future_intx, current.period))
 }
