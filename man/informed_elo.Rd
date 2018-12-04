@@ -95,7 +95,7 @@ Full description of the addition of new individuals is describe
 in Strauss & Holekamp (in revision).
 }
 \references{
-Strauss ED & Holekamp KE (in revision). Journal of Animal Ecology.  
+Strauss ED & Holekamp KE (in revision). Journal of Animal Ecology.
   
             Albers PCH & De Vries H (2000). Animal Behavior, 61, 489-495.
 }

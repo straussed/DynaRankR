@@ -30,7 +30,7 @@ add_new_ids_mri <- function(new.ids, working.ranks, contestants, period, periods
       period.index <- which(periods == period)-1
       mom.index <- NULL
       while(!length(mom.index) & period.index > 0){
-        prev.period.rank <- filter(ranks, period == periods[period.index])
+        prev.period.rank <- dplyr::filter(ranks, period == periods[period.index])
         ##If mom was highest ranked, add to front and move to next id
         if(prev.period.rank$id[1] == mom){
           mom.index <- 0
@@ -61,9 +61,9 @@ add_new_ids_tenure <- function(new.ids, working.ranks, contestants, period){
   conts.this.period <- contestants[contestants$period == period,]
   
   if('convention2' %in% names(conts.this.period)){
-    conts.ordered <- arrange(conts.this.period, convention1, desc(convention2))
+    conts.ordered <- dplyr::arrange(conts.this.period, convention1, desc(convention2))
   }else{
-    conts.ordered <- arrange(conts.this.period, convention1)
+    conts.ordered <- dplyr::arrange(conts.this.period, convention1)
   }
   for(nid in new.ids$id){
     working.ranks <- add_after_index(which(nid == conts.ordered$id)-1, vec = working.ranks,newrec = nid)

@@ -95,10 +95,10 @@
 #' n = 10, shuffles = 50, require.corroboration = TRUE, 
 #' initial.ranks = C.crocuta.female$initial.ranks,
 #' interactions = C.crocuta.female$interactions)
-
-female.ranks %>%  
-  select(period, id, rank) %>%
-  plot_ranks()
+#' 
+#' female.ranks %>%  
+#'   select(period, id, rank) %>%
+#'   plot_ranks()
 #' 
 #' @export
 #'

@@ -18,7 +18,6 @@
 #' 
 #' @return An interaction matrix reorderd to minimize inconsistencies with minimal changes
 #' 
-#' @export
 #' 
 
 i_dist <- function(mat, n, shuffles, future_intx, current.period){

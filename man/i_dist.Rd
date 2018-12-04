@@ -4,7 +4,7 @@
 \alias{i_dist}
 \title{Update rank order based on interaction data}
 \usage{
-i_dist(mat, n, shuffles, future_intx)
+i_dist(mat, n, shuffles, future_intx, current.period)
 }
 \arguments{
 \item{mat}{A raw (i.e., not binarized) interaction matrix with winners as rows and losers as columns. 

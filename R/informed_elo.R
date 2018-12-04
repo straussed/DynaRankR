@@ -82,7 +82,9 @@
 #'          were in before updating the order based on observations from current
 #'          study period.}}
 #' 
-#' @references Strauss ED & Holekamp KE (in revision). Journal of Animal Ecology.  
+#' @import dplyr
+#' 
+#' @references Strauss ED & Holekamp KE (in revision). Journal of Animal Ecology.
 #'   
 #'             Albers PCH & De Vries H (2000). Animal Behavior, 61, 489-495. 
 #'
