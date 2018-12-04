@@ -1,5 +1,5 @@
-Package: LongiDom
-Title: Inferring Longitudinal Dominance Hierarchies
+Package: DynaRank
+Title: Inferring Dynamical Dominance Hierarchies Using Prior Information
 Version: 0.1
 Authors@R: 
     person(given = "Eli",
