@@ -154,7 +154,7 @@ dynarank <- function(contestants, convention, n, shuffles, require.corroboration
     .[,c(1,2)] %>%
     edgelist_to_matrix(identities = working.ranks)
     
-  working.ranks <- colnames(i_dist(intx.matrix, n, shuffles, future.intx.matrix, current.period)[[1]])
+  working.ranks <- colnames(i_dist(intx.matrix, n, shuffles, future.intx.matrix, periods[1])[[1]])
   
   ## save to ranks object
   ranks[ranks$period == periods[1],]$id <- working.ranks
@@ -210,7 +210,7 @@ dynarank <- function(contestants, convention, n, shuffles, require.corroboration
                                    ncol = length(working.ranks), nrow = length(working.ranks))
     }
     
-    working.ranks <- colnames(i_dist(intx.matrix, n, shuffles, future.intx.matrix)[[1]])
+    working.ranks <- colnames(i_dist(intx.matrix, n, shuffles, future.intx.matrix, current.period)[[1]])
     
     ## save to ranks object
     ranks[ranks$period == current.period,]$id <- working.ranks
