@@ -15,6 +15,8 @@
 #' @param future_intx A raw (i.e., not binarized) interaction matrix with 
 #'        interaction outcomes from future study periods involving the individuals
 #'        in mat. Used to resolve ties for most optimal ordering.
+#'        
+#' @param current.period The current period under consideration.
 #' 
 #' @return An interaction matrix reorderd to minimize inconsistencies with minimal changes
 #' 

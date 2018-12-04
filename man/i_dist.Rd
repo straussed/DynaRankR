@@ -18,6 +18,8 @@ must be identical and are treated as the initial rank ordering.}
 \item{future_intx}{A raw (i.e., not binarized) interaction matrix with 
 interaction outcomes from future study periods involving the individuals
 in mat. Used to resolve ties for most optimal ordering.}
+
+\item{current.period}{The current period under consideration.}
 }
 \value{
 An interaction matrix reorderd to minimize inconsistencies with minimal changes
