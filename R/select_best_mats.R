@@ -2,7 +2,7 @@
 #Criteria are:
 ##Fewest inconsistencies
 ##Most similar to previous order
-select_best_mats <- function(output, initial_matrix, future_intx){
+select_best_mats <- function(output, initial_matrix, future_intx, current.period){
   x <- lapply(output, identify_inconsistencies)
   icounts <-  lapply(x, "[[", "i_count")
   

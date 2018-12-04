@@ -21,7 +21,7 @@
 #' @export
 #' 
 
-i_dist <- function(mat, n, shuffles, future_intx){
+i_dist <- function(mat, n, shuffles, future_intx, current.period){
   ##Full matrix of interactions
   orig.full.mat <- mat
   ##Outcome matrix
@@ -77,5 +77,5 @@ i_dist <- function(mat, n, shuffles, future_intx){
   }
   #After doing all iterations, select the best order from the final orders list
   #using select_best_mats function
-  return(select_best_mats(output = unique(final_orders), initial_matrix = orig.full.mat, future_intx = future_intx))
+  return(select_best_mats(output = unique(final_orders), initial_matrix = orig.full.mat, future_intx = future_intx, current.period))
 }
