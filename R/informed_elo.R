@@ -101,8 +101,8 @@ informed_elo <- function(contestants, convention, K = 200, lambda = 100, initial
       stop('some moms not included in contestants. Missing moms: ', paste(missing.moms, collapse = ', '))
     }
   }
-  if(!convention %in% c('mri','tenure','age','phys_attr'))
-    stop('convention not recognized. Must be one of: \'mri\', \'tenure\', \'age\', \'phys_attr\'')
+  if(!convention %in% c('mri','tenure','age','phys_attr','none'))
+    stop('convention not recognized. Must be one of: \'mri\', \'tenure\', \'age\', \'phys_attr\', \'none\'')
   
   if(any(!c('period', 'id', 'convention1') %in% names(contestants)))
     stop('contestants dataframe missing \'period\', \'id\', or \'convention1\' column')

@@ -40,7 +40,7 @@ select_best_mats <- function(output, initial_matrix, future_intx, current.period
         if(length(consistent_with_future) == 1){
           return(consistent_with_future)
         }else{
-          cat(gsub('q', current.period, '\n     CAUTION: q failed to converge! \n'))
+          cat(gsub('q', current.period, '\n     CAUTION: q failed to converge! '))
           return(consistent_with_future)
         }
       }else{return(output_most_consistent)}
