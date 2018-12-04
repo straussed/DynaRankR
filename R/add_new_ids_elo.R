@@ -1,4 +1,4 @@
-#' @importFrom dplyr filter, arrange, 
+#' @importFrom dplyr filter arrange
 add_new_ids_mri_elo <- function(new.ids, current.scores, contestants, period, periods, ranks){
   new.scores <- data.frame(id = rep(NA, length(new.ids)), score = rep(NA, length(new.ids)))
   new.ids <- contestants[contestants$id %in% new.ids &
