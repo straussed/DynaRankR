@@ -90,9 +90,20 @@
 #' 
 #' @references Strauss & Holekamp (in revision). Journal of Animal Ecology.
 #' @import dplyr
-#' @export
 #' 
-longidom <- function(contestants, convention, n, shuffles, require.corroboration = FALSE, 
+#' @examples female.ranks <- dynarank(contestants = C.crocuta.female$contestants, convention = 'mri',
+#' n = 10, shuffles = 50, require.corroboration = TRUE, 
+#' initial.ranks = C.crocuta.female$initial.ranks,
+#' interactions = C.crocuta.female$interactions)
+
+female.ranks %>%  
+  select(period, id, rank) %>%
+  plot_ranks()
+#' 
+#' @export
+#'
+#' 
+dynarank <- function(contestants, convention, n, shuffles, require.corroboration = FALSE, 
                      initial.ranks, interactions){
   periods <- unique(contestants$period)
   
