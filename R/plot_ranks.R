@@ -31,7 +31,7 @@ plot_ranks <- function(ranks, ...){
     ranks$period <- as.character(ranks$period)
     ranks$x <- as.numeric(factor(ranks$period, levels = unique(ranks$period)))
     plot(x = ranks$x, y = ranks$rank, type = 'n', ylim = ylimit,
-         xlab = 'Study period', ylab = ylabel, ..., xaxt = 'n')
+         xlab = 'Study period', ylab = ylabel, list(...), xaxt = 'n')
     axis(1, at = ranks$x, labels = ranks$period)
     for(id in unique(ranks$id)){
       lines(x = ranks[ranks$id == id,'x'], y = ranks[ranks$id == id,'rank'])
@@ -39,14 +39,14 @@ plot_ranks <- function(ranks, ...){
   }else if(is.character(ranks$period)){
     ranks$x <- as.numeric(factor(ranks$period, levels = unique(ranks$period)))
     plot(x = ranks$x, y = ranks$rank, type = 'n', ylim = ylimit,
-         xlab = 'Study period', ylab = ylabel, ..., xaxt = 'n')
+         xlab = 'Study period', ylab = ylabel, list(...), xaxt = 'n')
     axis(1, at = ranks$x, labels = ranks$period)
     for(id in unique(ranks$id)){
       lines(x = ranks[ranks$id == id,'x'], y = ranks[ranks$id == id,'rank'])
     }
   }else{
     plot(x = ranks$period, y = ranks$rank, type = 'n', ylim = ylimit,
-         xlab = 'Study period', ylab = ylabel, ...)
+         xlab = 'Study period', ylab = ylabel, list(...))
     for(id in unique(ranks$id)){
       lines(x = ranks[ranks$id == id,'period'], y = ranks[ranks$id == id,'rank'])
     }
