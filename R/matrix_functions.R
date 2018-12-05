@@ -78,6 +78,8 @@ list_inconsistencies <- function(mat){
 
 ##Move an individual in a matrix
 moverowcol <- function(X, s, d){
+  s <- which(dimnames(X)[[1]] == s)
+  d <- which(dimnames(X)[[1]] == d)
   new.order <- dimnames(X)[[1]]
   newmat <- X
   new.order <- unlist(append(new.order[-s], new.order[s], after = d-1))
