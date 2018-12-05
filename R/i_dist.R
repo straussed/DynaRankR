@@ -42,9 +42,14 @@ i_dist <- function(mat, n, shuffles, future_intx, current.period){
       #List of inconsistencies for best order
       best_stats <- identify_inconsistencies(best)
       
-      #If there are no inconsistencies, the current order is the best order
+      # #If there are no inconsistencies, the current order is the best order
+      # if(is.null(best_stats$is)){
+      #   #pick_next_mat <- unique(most_similar)
+      #   break
+      # }
+      
       if(is.null(best_stats$is)){
-        #pick_next_mat <- unique(most_similar)
+        pick_next_mat <- list(best)
         break
       }
       
