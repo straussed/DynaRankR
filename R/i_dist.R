@@ -39,19 +39,14 @@ i_dist <- function(mat, n, shuffles, future_intx, current.period){
     pick_next_mat <- list(best)
     
     for(shuff in 1:shuffles){
-      #List if inconsistencies for best order
+      #List of inconsistencies for best order
       best_stats <- identify_inconsistencies(best)
       
-      #If there are no inconsistencies, the current order is the best order
-      if(is.null(best_stats$is)){
-        pick_next_mat <- list(best)
-        break
-      }
       #Otherwise, pick a random individual in an inconsistency to move
       i <- sample(best_stats$is, 1)
       
       #Check each potential destination for individual
-      for(d in sample(1:(length(dimnames(best)[[1]])))){
+      for(d in dimnames(mat)[[1]]){
         working <- moverowcol(best,i,d)
         working_stats <- identify_inconsistencies(working)
         #If the new destination is as good as the old location, save the new order
@@ -70,9 +65,8 @@ i_dist <- function(mat, n, shuffles, future_intx, current.period){
       most_similar <- pick_next_mat[which(similarity_to_starting == similarity_to_starting[[which.max(similarity_to_starting)]])]
       best <- sample(unique(most_similar), 1)[[1]]
       
-      
     }
-    #After repeating this swapping procedure 100 times, add all MIOs to a final
+    #After repeating this swapping procedure many times, add all MIOs to a final
     #list of best orders 
     final_orders[(length(final_orders)+1):(length(final_orders)+length(unique(pick_next_mat)))] <- unique(pick_next_mat)
   }
