@@ -210,7 +210,8 @@ dynarank <- function(contestants, convention, n, shuffles, require.corroboration
                                    ncol = length(working.ranks), nrow = length(working.ranks))
     }
     
-    working.ranks <- colnames(i_dist(intx.matrix, n, shuffles, future.intx.matrix, current.period)[[1]])
+    working.ranks <- colnames(i_dist(mat = intx.matrix, n = n, shuffles = shuffles, 
+                                     future_intx = future.intx.matrix, current.period = current.period)[[1]])
     
     ## save to ranks object
     ranks[ranks$period == current.period,]$id <- working.ranks
