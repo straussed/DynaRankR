@@ -54,6 +54,11 @@ i_dist <- function(mat, n, shuffles, future_intx, current.period){
       }
       
       #Otherwise, pick a random individual in an inconsistency to move
+      if(is.null(dimnames(best))){
+        return(list(best,
+                    best_stats$is,
+                    mat))
+      }
       i <- sample(best_stats$is, 1)
       
       #Check each potential destination for individual
