@@ -48,13 +48,13 @@ i_dist <- function(mat, n, shuffles, future_intx, current.period){
       #   break
       # }
       
-      if(is.null(best_stats$is)){
+      if(!length(best_stats$is)){
         pick_next_mat <- list(best)
         break
       }
       
       #Otherwise, pick a random individual in an inconsistency to move
-      print(str(best_stats$is))
+      #print(str(best_stats$is))
       i <- sample(best_stats$is, 1)
       
       
