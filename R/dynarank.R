@@ -209,7 +209,6 @@ dynarank <- function(contestants, convention, n, shuffles, require.corroboration
       future.intx.matrix <- matrix(data = 0, dimnames = list(working.ranks, working.ranks),
                                    ncol = length(working.ranks), nrow = length(working.ranks))
     }
-    print('Made it to i_dist\n')
     working.ranks <- colnames(i_dist(mat = intx.matrix, n = n, shuffles = shuffles, 
                                      future_intx = future.intx.matrix, current.period = current.period)[[1]])
     
