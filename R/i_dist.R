@@ -42,6 +42,12 @@ i_dist <- function(mat, n, shuffles, future_intx, current.period){
       #List of inconsistencies for best order
       best_stats <- identify_inconsistencies(best)
       
+      #If there are no inconsistencies, the current order is the best order
+      if(is.null(best_stats$is)){
+        pick_next_mat <- unique(most_similar)
+        break
+      }
+      
       #Otherwise, pick a random individual in an inconsistency to move
       i <- sample(best_stats$is, 1)
       
