@@ -30,5 +30,6 @@ identify_inconsistencies <- function(mat){
       }
     }  
   }
+  index_is <- dimnames(mat)[[1]][index_is]
   return(list(is = unique(index_is), i_count = length(index_is)))
 }
