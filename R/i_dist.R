@@ -38,20 +38,25 @@ i_dist <- function(mat, n, shuffles, future_intx, current.period){
     #Initialize list of minimal inconsistency orders (MIOs)
     pick_next_mat <- list(best)
     
+    original_inconsistencies <- identify_inconsistencies(best)$is
+    
     for(shuff in 1:shuffles){
       #List of inconsistencies for best order
       best_stats <- identify_inconsistencies(best)
+      
       
       #If there are no inconsistencies, the current order is the best order
       if(!length(best_stats$is)){
         pick_next_mat <- unique(most_similar)
         break
       }
-    
+      
+      #only move individuals originally involved in inconsistency
+      inconsistent_ids <- dplyr::intersect(best_stats$is, original_inconsistencies)
       
       #Otherwise, pick a random individual in an inconsistency to move
       #print(str(best_stats$is))
-      i <- sample(best_stats$is, 1)
+      i <- sample(inconsistent_ids, 1)
       
       
       #Check each potential destination for individual
