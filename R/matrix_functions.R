@@ -81,7 +81,6 @@ moverowcol <- function(X, s, d){
   s <- which(dimnames(X)[[1]] == s)
   d <- which(dimnames(X)[[1]] == d)
   new.order <- dimnames(X)[[1]]
-  newmat <- X
   new.order <- unlist(append(new.order[-s], new.order[s], after = d-1))
   return(X[new.order, new.order])
 }
