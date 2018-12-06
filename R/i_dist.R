@@ -71,6 +71,7 @@ i_dist <- function(mat, n, shuffles, future_intx, current.period){
           ##save the new order as the only MIO
         }else if(working_stats$i_count < best_stats$i_count){
           pick_next_mat <- list(working)
+          best_stats <- identify_inconsistencies(working)
         }
       }
       ##After trying all destinations for the individual, select a new best order
@@ -78,7 +79,6 @@ i_dist <- function(mat, n, shuffles, future_intx, current.period){
       similarity_to_starting <- lapply(pick_next_mat, dyadic_similarity, orig)
       most_similar <- pick_next_mat[which(similarity_to_starting == similarity_to_starting[[which.max(similarity_to_starting)]])]
       best <- sample(unique(most_similar), 1)[[1]]
-      
     }
     #After repeating this swapping procedure many times, add all MIOs to a final
     #list of best orders 
