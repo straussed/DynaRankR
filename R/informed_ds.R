@@ -40,7 +40,7 @@ informed_ds <- function(contestants, convention,
   
   working.ranks <- initial.ranks
   if(convention == 'none'){
-    working.ranks <- filter(contestants, period == periods[1])
+    working.ranks <- filter(contestants, period == periods[1])$id
   }
   
   ##Prep for first period
