@@ -38,20 +38,23 @@ informed_ds <- function(contestants, convention,
   ranks$score <- NA
   ranks <- select(ranks, period, id, score, rank, old.order)
   
-  ##Prep for first period
-  current.Dij <- matrix(data = 0, nrow = length(initial.ranks), ncol = length(initial.ranks))
-  current.Dij[upper.tri(current.Dij)] <- 1
-  current.Dij <- ds_single(current.Dij)
-  
   working.ranks <- initial.ranks
   if(convention == 'none'){
     working.ranks <- filter(contestants, period == periods[1])
   }
   
+  ##Prep for first period
+  current.Dij <- matrix(data = 0, nrow = length(working.ranks), ncol = length(initial.ranks),
+                        dimnames = list(working.ranks, initial.ranks))
+  current.Dij[upper.tri(current.Dij)] <- 1
+  current.Dij <- ds_single(current.Dij)
+  
+  
+  
   for(current.period in periods){
     
     new.ids <- filter(contestants, period == current.period, 
-                      !id %in% current.scores$id)$id
+                      !id %in% rownames(current.Dij))$id
     
     ## Add new ids according to convention
     if(length(new.ids)){
