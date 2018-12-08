@@ -118,9 +118,9 @@ informed_elo <- function(contestants, convention, K = 200, lambda = 100, initial
   ranks$score <- NA
   ranks <- select(ranks, period, id, score, rank, old.order)
   
-  current.scores <- data.frame(id = initial.ranks, score = seq(from = K*(length(initial.ranks)-1)/2, 
+  current.scores <- data.frame(id = initial.ranks, score = seq(from = K*(length(initial.ranks)-1), 
                                                                 to = 0,
-                                                                by = -K/2))
+                                                                by = -K))
   
   for(current.period in periods){
     intx <- interactions %>%
