@@ -9,10 +9,6 @@ informed_ds <- function(contestants, convention,
                         initial.ranks = NULL, interactions){
   periods <- unique(contestants$period)
   
-  ##Error checking
-  if(convention == 'none'){
-    warning('No convention used. Ranks are calculated independently for each period and \'initial.ranks\' are ignored.')
-  }
   
   if(convention == 'mri'){
     missing.moms <- which(!contestants$convention %in% contestants$id)
