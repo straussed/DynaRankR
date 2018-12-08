@@ -1,5 +1,8 @@
 #' David's Score
 #'
+#'
+#' @import dplyr
+#'
 #' @export
 
 informed_ds <- function(contestants, convention,
