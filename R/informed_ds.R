@@ -44,7 +44,7 @@ informed_ds <- function(contestants, convention,
   current.Dij <- ds_single(current.Dij)
   
   working.ranks <- initial.ranks
-  if(update == FALSE){
+  if(convention == 'none'){
     working.ranks <- filter(contestants, period == periods[1])
   }
   
@@ -97,9 +97,13 @@ informed_ds <- function(contestants, convention,
       
       current.Dij <- mat.temp
     }
+    if(convention == 'none'){
+      current.Dij <- ds_single(obs = intx.matrix)
+    }else{
+      current.Dij <- informed_ds_single(obs = intx.matrix,
+                                        prior = current.Dij)
+    }
     
-    current.Dij <- informed_ds_single(obs = intx.matrix,
-                                      prior = current.Dij)
     current.scores <- data.frame(id = working.ranks,
                              normDS = calc_ds(current.Dij))
     current.scores <- arrange(current.scores, desc(normDS))
