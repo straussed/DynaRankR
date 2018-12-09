@@ -21,6 +21,7 @@ add_new_ids_mri_elo <- function(new.ids, current.scores, contestants, period, pe
     }else{
       period.index <- which(periods == period)-1
       mom.index <- NULL
+      mom.score <- NULL
       while(!length(mom.score) & period.index > 0){
         prev.period.rank <- filter(ranks, period == periods[period.index])
         mom.score <- prev.period.rank$score[prev.period.rank$id == mom]
