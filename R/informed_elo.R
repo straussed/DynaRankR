@@ -140,6 +140,7 @@ informed_elo <- function(contestants, convention, K = 200, lambda = 100, initial
                                     none = add_new_ids_noconv_elo(new.ids, current.scores)))
       new.ids <- NULL
     }
+    current.scores$score <- as.numeric(current.scores$score)
     ## Remove dead or emigrated individuals
     dead <- which(!current.scores$id %in% filter(contestants, period == current.period)$id)
     if(length(dead)){current.scores <- current.scores[-dead,]}
