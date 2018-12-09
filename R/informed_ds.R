@@ -39,9 +39,15 @@ informed_ds <- function(contestants, convention,
     working.ranks <- filter(contestants, period == periods[1])$id
   }
   
+  if(any(!working.ranks %in% filter(contestants, period == contestants$period[1])$id)){
+    stop(paste0('Not all individuals in \'initial.ranks\' in first period in \'contestants\'.
+    Remove individuals: ', paste(working.ranks[!working.ranks %in% filter(contestants, period == contestants$period[1])$id], collapse = ', ')))
+  }
+    
+  
   ##Prep for first period
   current.Dij <- matrix(data = 0, nrow = length(working.ranks), ncol = length(initial.ranks),
-                        dimnames = list(working.ranks, initial.ranks))
+                        dimnames = list(working.ranks, working.ranks))
   current.Dij[upper.tri(current.Dij)] <- 1
   current.Dij <- ds_single(current.Dij)
   
@@ -66,6 +72,9 @@ informed_ds <- function(contestants, convention,
     ## Remove dead or emigrated individuals
     dead <- which(!working.ranks %in% filter(contestants, period == current.period)$id)
     if(length(dead)){working.ranks <- working.ranks[-dead]}
+    
+    dead <- which(!rownames(current.Dij) %in% filter(contestants, period == current.period)$id)
+    current.Dij <- current.Dij[-dead,-dead]
     
     initial.ranks <- working.ranks
     
