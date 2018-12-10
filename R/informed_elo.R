@@ -120,7 +120,7 @@ informed_elo <- function(contestants, convention, K = 200, lambda = 100, initial
   
   current.scores <- data.frame(id = initial.ranks, score = seq(from = K*(length(initial.ranks)-1), 
                                                                 to = 0,
-                                                                by = -K))
+                                                                by = -K),stringsAsFactors = FALSE)
   
   for(current.period in periods){
     intx <- interactions %>%

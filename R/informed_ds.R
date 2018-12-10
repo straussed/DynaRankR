@@ -113,7 +113,8 @@ informed_ds <- function(contestants, convention,
     }
     
     current.scores <- data.frame(id = working.ranks,
-                             normDS = calc_ds(current.Dij))
+                             normDS = calc_ds(current.Dij),
+                             stringsAsFactors = FALSE)
     current.scores <- arrange(current.scores, desc(normDS))
     
     ## save to ranks object
