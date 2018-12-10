@@ -116,11 +116,18 @@ informed_elo <- function(contestants, convention, K = 200, lambda = 100, initial
   ranks$rank <- NA
   ranks$old.order <- NA
   ranks$score <- NA
-  ranks <- select(ranks, period, id, score, rank, old.order)
+  ranks <- dplyr::select(ranks, period, id, score, rank, old.order)
   
-  current.scores <- data.frame(id = initial.ranks, score = seq(from = K*(length(initial.ranks)-1), 
-                                                                to = 0,
-                                                                by = -K),stringsAsFactors = FALSE)
+  if(is.null(initial.ranks)){
+    initial.ranks <- filter(contestants, period == periods[1])$id
+  }
+  if(convention == 'none'){
+    current.scores <- data.frame(data.frame(id = initial.ranks, score = 0 ,stringsAsFactors = FALSE))
+  }else{
+    current.scores <- data.frame(id = initial.ranks, score = seq(from = K*(length(initial.ranks)-1), 
+                                                                 to = 0,
+                                                                 by = -K),stringsAsFactors = FALSE)
+  }
   
   for(current.period in periods){
     intx <- interactions %>%
@@ -150,9 +157,9 @@ informed_elo <- function(contestants, convention, K = 200, lambda = 100, initial
         winner <- intx[i,]$winner
         loser <- intx[i,]$loser
         E_winner = 1/(1 + exp((current.scores[current.scores$id == winner,'score'] - 
-                                current.scores[current.scores$id == loser,'score'])/lambda))
+                                current.scores[current.scores$id == loser,'score'])/-lambda))
         E_loser = 1/(1 + exp((current.scores[current.scores$id == loser,'score'] - 
-                               current.scores[current.scores$id == winner,'score'])/lambda))
+                               current.scores[current.scores$id == winner,'score'])/-lambda))
         
         current.scores[current.scores$id == winner,'score'] <- 
           current.scores[current.scores$id == winner,'score'] + K*(1-E_winner)
@@ -172,7 +179,7 @@ informed_elo <- function(contestants, convention, K = 200, lambda = 100, initial
   ranks <- ranks %>% 
     group_by(period) %>% 
     mutate(stan.rank = -2*(rank-1)/(max(rank)-1) + 1) %>% 
-    select(period, id, score, rank, stan.rank, old.order) %>% 
+    dplyr::select(period, id, score, rank, stan.rank, old.order) %>% 
     as.data.frame()
   
   return(ranks)
