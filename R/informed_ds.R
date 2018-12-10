@@ -153,7 +153,7 @@ informed_ds <- function(contestants, convention,
     
   
   ##Prep for first period
-  current.Dij <- matrix(data = 0, nrow = length(working.ranks), ncol = length(initial.ranks),
+  current.Dij <- matrix(data = 0, nrow = length(working.ranks), ncol = length(working.ranks),
                         dimnames = list(working.ranks, working.ranks))
   current.Dij[upper.tri(current.Dij)] <- 1
   current.Dij <- ds_single(current.Dij)
