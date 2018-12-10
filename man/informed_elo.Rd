@@ -66,7 +66,7 @@ linking the difference in score between winner and loser
 to the expected probability of each contestant winning.}
 
 \item{initial.ranks}{The initial ordering of individuals for the first study
-period.}
+period. Required if using maternal rank inheritance as the convention.}
 
 \item{interactions}{A dataframe of interaction data with the following columns:
 \describe{
@@ -91,7 +91,7 @@ Produces a dataframe with columnes:
 \description{
 Use Elo-rating method to infer dominance hierarchy over multiple study periods.
 New contestants are added according to the convention specified by the user. 
-Full description of the addition of new individuals is describe
+Full description of the addition of new individuals is described
 in Strauss & Holekamp (in revision).
 }
 \references{

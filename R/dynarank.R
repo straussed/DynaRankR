@@ -68,7 +68,7 @@
 #'        observations that don't reflect a lasting change in the true latent order.  
 #' 
 #' @param initial.ranks The initial ordering of individuals for the first study
-#'        period.
+#'        period. Required if using maternal rank inheritance as the convention.
 #' 
 #' @param interactions A dataframe of interaction data with the following columns:
 #'         \describe{

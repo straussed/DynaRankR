@@ -5,7 +5,7 @@
 \title{Infer latent hierarchy from longitudinal data incorporating prior information}
 \usage{
 dynarank(contestants, convention, n, shuffles,
-  require.corroboration = FALSE, initial.ranks, interactions)
+  require.corroboration = FALSE, initial.ranks = NULL, interactions)
 }
 \arguments{
 \item{contestants}{A dataframe with the identities of the contestants for 
@@ -69,7 +69,7 @@ in the order. Useful for reducing the sensitivity of the method to abarrent
 observations that don't reflect a lasting change in the true latent order.}
 
 \item{initial.ranks}{The initial ordering of individuals for the first study
-period.}
+period. Required if using maternal rank inheritance as the convention.}
 
 \item{interactions}{A dataframe of interaction data with the following columns:
 \describe{

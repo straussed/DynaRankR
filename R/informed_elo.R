@@ -2,7 +2,7 @@
 #'
 #' Use Elo-rating method to infer dominance hierarchy over multiple study periods.
 #' New contestants are added according to the convention specified by the user. 
-#' Full description of the addition of new individuals is describe
+#' Full description of the addition of new individuals is described
 #' in Strauss & Holekamp (in revision). 
 #' 
 #' @param contestants A dataframe with the identities of the contestants for 
@@ -61,7 +61,7 @@
 #'               to the expected probability of each contestant winning.
 #' 
 #' @param initial.ranks The initial ordering of individuals for the first study
-#'        period.
+#'        period. Required if using maternal rank inheritance as the convention.
 #' 
 #' @param interactions A dataframe of interaction data with the following columns:
 #'         \describe{
