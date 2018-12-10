@@ -109,21 +109,21 @@ informed_elo <- function(contestants, convention, K = 200, lambda = 100, initial
     if('convention2' %in% names(contestants)){
       initial.ranks <- filter(contestants, period == periods[1]) %>% 
         arrange(convention1, desc(convention2)) %>%
-        dplyr::select(id)
+        dplyr::pull(id)
     }else{
       initial.ranks <- filter(contestants, period == periods[1]) %>% 
         arrange(convention1) %>% 
-        dplyr::select(id)
+        dplyr::pull(id)
     }
   }else if(is.null(initial.ranks) & convention %in% c('age', 'phys_attr')){
     if('convention2' %in% names(contestants)){
       initial.ranks <- filter(contestants, period == periods[1]) %>% 
         arrange(desc(convention1), desc(convention2)) %>%
-        dplyr::select(id)
+        dplyr::pull(id)
     }else{
       initial.ranks <- filter(contestants, period == periods[1]) %>% 
         arrange(desc(convention1)) %>% 
-        dplyr::select(id)
+        dplyr::pull(id)
     }
   }
   
