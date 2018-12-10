@@ -63,8 +63,31 @@ add_new_ids_tenure_elo <- function(new.ids, current.scores, contestants, period)
   return(new.scores)
 }
 
-add_new_ids_age_elo <- add_new_ids_tenure_elo
-add_new_ids_phys_attr_elo <- add_new_ids_tenure_elo
+add_new_ids_age_elo <- function(new.ids, current.scores, contestants, period){
+  
+  new.scores <- data.frame(id = rep(NA, length(new.ids)), score = rep(NA, length(new.ids)))
+  new.ids <- contestants[contestants$id %in% new.ids &
+                           contestants$period == period,]
+  
+  if(any(!sapply(new.ids[1,startsWith(names(new.ids), 'convention')], class) %in% c('Date', 'numeric'))){
+    stop('Conventions must be dates or numeric')
+  }
+  
+  conts.this.period <- contestants[contestants$period == period,]
+  
+  if('convention2' %in% names(conts.this.period)){
+    conts.ordered <- arrange(conts.this.period, desc(convention1), desc(convention2))
+  }else{
+    conts.ordered <- arrange(conts.this.period, desc(convention1))
+  }
+  for(nid in new.ids$id){
+    prob = 1 - which(nid == conts.ordered$id)/nrow(conts.ordered)
+    new.scores[which(nid == new.ids$id),]<- c(nid, 
+                                              quantile(current.scores$score, probs = prob))
+  }
+  return(new.scores)
+}
+add_new_ids_phys_attr_elo <- add_new_ids_age_elo
 
 add_new_ids_noconv_elo <- function(new.ids, current.scores){
   return(

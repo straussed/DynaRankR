@@ -71,5 +71,25 @@ add_new_ids_tenure <- function(new.ids, working.ranks, contestants, period){
   return(working.ranks)
 }
 
-add_new_ids_age <- add_new_ids_tenure
-add_new_ids_phys_attr <- add_new_ids_tenure
+add_new_ids_age <- function(new.ids, working.ranks, contestants, period){
+  new.ids <- contestants[contestants$id %in% new.ids &
+                           contestants$period == period,]
+  
+  if(any(!sapply(new.ids[1,startsWith(names(new.ids), 'convention')], class) %in% c('Date', 'numeric'))){
+    stop('Conventions must be dates or numeric')
+  }
+  
+  conts.this.period <- contestants[contestants$period == period,]
+  
+  if('convention2' %in% names(conts.this.period)){
+    conts.ordered <- dplyr::arrange(conts.this.period, desc(convention1), desc(convention2))
+  }else{
+    conts.ordered <- dplyr::arrange(conts.this.period, desc(convention1))
+  }
+  for(nid in new.ids$id){
+    working.ranks <- add_after_index(which(nid == conts.ordered$id)-1, vec = working.ranks,newrec = nid)
+  }
+  return(working.ranks)
+}
+
+add_new_ids_phys_attr <- add_new_ids_age
