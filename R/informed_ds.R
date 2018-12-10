@@ -163,6 +163,6 @@ calc_ds <- function(Dij.mat){
   w2 <- apply(X = Dij.mat * matrix(data = w, nrow = nids, ncol = nids, byrow = TRUE), MARGIN = 1, FUN = sum)
   l2 <- apply(X = Dij.mat * matrix(data = l, nrow = nids, ncol = nids, byrow = FALSE), MARGIN = 2, FUN = sum)
   
-  return((w + w2 - l - l2 + nids*(nids-1)/2)/20)
+  return((w + w2 - l - l2 + nids*(nids-1)/2)/nids)
 }
 
