@@ -100,7 +100,33 @@ informed_elo <- function(contestants, convention, K = 200, lambda = 100, initial
     if(length(missing.moms)){
       stop('some moms not included in contestants. Missing moms: ', paste(missing.moms, collapse = ', '))
     }
+    if(is.null(initial.ranks)){
+      stop('initial.ranks must be provided if convention = mri')
+    }
   }
+  
+  if(is.null(initial.ranks) & convention == 'tenure'){
+    if('convention2' %in% names(contestants)){
+      initial.ranks <- filter(contestants, period == periods[1]) %>% 
+        arrange(convention1, desc(convention2)) %>%
+        dplyr::select(id)
+    }else{
+      initial.ranks <- filter(contestants, period == periods[1]) %>% 
+        arrange(convention1) %>% 
+        dplyr::select(id)
+    }
+  }else if(is.null(initial.ranks) & convention %in% c('age', 'phys_attr')){
+    if('convention2' %in% names(contestants)){
+      initial.ranks <- filter(contestants, period == periods[1]) %>% 
+        arrange(desc(convention1), desc(convention2)) %>%
+        dplyr::select(id)
+    }else{
+      initial.ranks <- filter(contestants, period == periods[1]) %>% 
+        arrange(desc(convention1)) %>% 
+        dplyr::select(id)
+    }
+  }
+  
   if(!convention %in% c('mri','tenure','age','phys_attr','none'))
     stop('convention not recognized. Must be one of: \'mri\', \'tenure\', \'age\', \'phys_attr\', \'none\'')
   
