@@ -94,8 +94,10 @@ i_dist <- function(mat, n, shuffles, future_intx, current.period){
     #After repeating this swapping procedure many times, add all MIOs to a final
     #list of best orders 
     final_orders[(length(final_orders)+1):(length(final_orders)+length(unique(pick_next_mat)))] <- unique(pick_next_mat)
+    if(shuff == shuffles){
+      warning('algorithm was still finding new orders when it stopped running. Increase shuffles and rerun.')
+    }
   }
-  cat(paste0('Ran until shuffle: ', shuff, '\n'))
   #After doing all iterations, select the best order from the final orders list
   #using select_best_mats function
   return(select_best_mats(output = unique(final_orders), initial_matrix = orig.full.mat, future_intx = future_intx, current.period))
