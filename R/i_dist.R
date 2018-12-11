@@ -67,7 +67,7 @@ i_dist <- function(mat, n, shuffles, future_intx, current.period){
           working_stats <- identify_inconsistencies(working)
           #If the new destination is as good as the old location, save the new order
           #in the list of MIOs
-          if(working_stats$i_count == best_stats$i_count){
+          if(working_stats$i_count == best_stats$i_count & !list(working) %in% pick_next_mat){
             pick_next_mat[[length(pick_next_mat)+1]] <- working
             no.change.counter <- 0
             ##If new location is better than the current best, delete other MIOs and
@@ -93,7 +93,7 @@ i_dist <- function(mat, n, shuffles, future_intx, current.period){
     #list of best orders 
     final_orders[(length(final_orders)+1):(length(final_orders)+length(unique(pick_next_mat)))] <- unique(pick_next_mat)
   }
-  cat(paste0(shuff, '\n'))
+  cat(paste0('Ran until shuffle: ', shuff, '\n'))
   #After doing all iterations, select the best order from the final orders list
   #using select_best_mats function
   return(select_best_mats(output = unique(final_orders), initial_matrix = orig.full.mat, future_intx = future_intx, current.period))
