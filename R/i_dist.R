@@ -79,14 +79,16 @@ i_dist <- function(mat, n, shuffles, future_intx, current.period){
           }else{
             no.change.counter <- no.change.counter + 1
           }
-          if(no.change.counter >= nrow(mat)*length(shuff_ids)*2)
-            print(paste0('stopped finding new orders at shuff ', shuff))
         }
         ##After trying all destinations for the individual, select a new best order
         ##to work with from the list of MIOs based on similarity to starting order
         similarity_to_starting <- lapply(pick_next_mat, dyadic_similarity, orig)
         most_similar <- pick_next_mat[which(similarity_to_starting == similarity_to_starting[[which.max(similarity_to_starting)]])]
         best <- sample(unique(most_similar), 1)[[1]]
+      }
+      if(no.change.counter > nrow(mat)*length(shuff_ids)){
+       # cat(paste0('\nstopped finding new orders at shuff ', shuff, '\n'))
+        break
       }
     }
     #After repeating this swapping procedure many times, add all MIOs to a final
