@@ -58,9 +58,9 @@
 #'                    in convention1. Higher values are 
 #'                    considered higher rank.}
 #'                   }
-#' @param n Number of separate reordering attempts per study period
+#' @param n Number of separate reordering attempts per study period. Recommended 10-100. 
 #' 
-#' @param shuffles Number of reshuffling steps per reordering attempt 
+#' @param shuffles Number of reshuffling steps per reordering attempt. Recommended 10. 
 #' 
 #' @param require.corroboration A logical indicating whether to require corroborating
 #'        evidence from multiple study periods before changing an contestant's position
@@ -92,7 +92,7 @@
 #' @import dplyr
 #' 
 #' @examples female.ranks <- dynarank(contestants = C.crocuta.female$contestants, convention = 'mri',
-#' n = 10, shuffles = 50, require.corroboration = TRUE, 
+#' n = 50, shuffles = 10, require.corroboration = TRUE, 
 #' initial.ranks = C.crocuta.female$initial.ranks,
 #' interactions = C.crocuta.female$interactions)
 #' 
@@ -103,7 +103,7 @@
 #' @export
 #'
 #' 
-dynarank <- function(contestants, convention, n, shuffles, require.corroboration = FALSE, 
+dynarank <- function(contestants, convention, n=50, shuffles=10, require.corroboration = FALSE, 
                      initial.ranks = NULL, interactions){
   periods <- unique(contestants$period)
   
@@ -154,7 +154,7 @@ dynarank <- function(contestants, convention, n, shuffles, require.corroboration
   ranks$id <- NA
   ranks$rank <- NA
   ranks$old.order <- NA
-  ranks <- select(ranks, period, id, rank, old.order)
+  ranks <- dplyr::select(ranks, period, id, rank, old.order)
   
   ##First period
   cat(paste0('\nWorking on period ', periods[1],' (1 of ', length(periods), ' periods)'))

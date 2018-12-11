@@ -4,7 +4,7 @@
 \alias{dynarank}
 \title{Infer latent hierarchy from longitudinal data incorporating prior information}
 \usage{
-dynarank(contestants, convention, n, shuffles,
+dynarank(contestants, convention, n = 50, shuffles = 10,
   require.corroboration = FALSE, initial.ranks = NULL, interactions)
 }
 \arguments{
@@ -59,9 +59,9 @@ Currently this function supports four options:
  considered higher rank.}
 }}
 
-\item{n}{Number of separate reordering attempts per study period}
+\item{n}{Number of separate reordering attempts per study period. Recommended 10-100.}
 
-\item{shuffles}{Number of reshuffling steps per reordering attempt}
+\item{shuffles}{Number of reshuffling steps per reordering attempt. Recommended 10.}
 
 \item{require.corroboration}{A logical indicating whether to require corroborating
 evidence from multiple study periods before changing an contestant's position
@@ -102,7 +102,7 @@ changed from the previous study period.
 }
 \examples{
 female.ranks <- dynarank(contestants = C.crocuta.female$contestants, convention = 'mri',
-n = 10, shuffles = 50, require.corroboration = TRUE, 
+n = 50, shuffles = 10, require.corroboration = TRUE, 
 initial.ranks = C.crocuta.female$initial.ranks,
 interactions = C.crocuta.female$interactions)
 
