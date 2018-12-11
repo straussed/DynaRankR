@@ -39,11 +39,13 @@ i_dist <- function(mat, n, shuffles, future_intx, current.period){
     pick_next_mat <- list(best)
     
     original_inconsistencies <- identify_inconsistencies(best)$is
-    
+    no.change.counter <- 0
     for(shuff in 1:shuffles){
+      
+      shuff_order <- sample(rownames(mat))
+      
       #List of inconsistencies for best order
       best_stats <- identify_inconsistencies(best)
-      
       
       #If there are no inconsistencies, the current order is the best order
       if(!length(best_stats$is)){
@@ -54,36 +56,44 @@ i_dist <- function(mat, n, shuffles, future_intx, current.period){
       #only move individuals originally involved in inconsistency
       inconsistent_ids <- dplyr::intersect(best_stats$is, original_inconsistencies)
       
-      #Otherwise, pick a random individual in an inconsistency to move
-      #print(str(best_stats$is))
-      i <- sample(inconsistent_ids, 1)
+      #Pick ids to move based on shuff_order 
+      #i <- sample(inconsistent_ids, 1)
+      shuff_ids <- shuff_order[shuff_order %in% inconsistent_ids]
       
-      
-      #Check each potential destination for individual
-      for(d in dimnames(mat)[[1]]){
-        working <- moverowcol(best,i,d)
-        working_stats <- identify_inconsistencies(working)
-        #If the new destination is as good as the old location, save the new order
-        #in the list of MIOs
-        if(working_stats$i_count == best_stats$i_count){
-          pick_next_mat[[length(pick_next_mat)+1]] <- working
-          ##If new location is better than the current best, delete other MIOs and
-          ##save the new order as the only MIO
-        }else if(working_stats$i_count < best_stats$i_count){
-          pick_next_mat <- list(working)
-          best_stats <- identify_inconsistencies(working)
+      for(i in shuff_ids){
+        #Check each potential destination for individual
+        for(d in dimnames(mat)[[1]]){
+          working <- moverowcol(best,i,d)
+          working_stats <- identify_inconsistencies(working)
+          #If the new destination is as good as the old location, save the new order
+          #in the list of MIOs
+          if(working_stats$i_count == best_stats$i_count){
+            pick_next_mat[[length(pick_next_mat)+1]] <- working
+            no.change.counter <- 0
+            ##If new location is better than the current best, delete other MIOs and
+            ##save the new order as the only MIO
+          }else if(working_stats$i_count < best_stats$i_count){
+            pick_next_mat <- list(working)
+            best_stats <- identify_inconsistencies(working)
+            no.change.counter <- 0
+          }else{
+            no.change.counter <- no.change.counter + 1
+          }
+          if(no.change.counter >= nrow(mat)*length(shuff_ids)*2)
+            print(paste0('stopped finding new orders at shuff ', shuff))
         }
+        ##After trying all destinations for the individual, select a new best order
+        ##to work with from the list of MIOs based on similarity to starting order
+        similarity_to_starting <- lapply(pick_next_mat, dyadic_similarity, orig)
+        most_similar <- pick_next_mat[which(similarity_to_starting == similarity_to_starting[[which.max(similarity_to_starting)]])]
+        best <- sample(unique(most_similar), 1)[[1]]
       }
-      ##After trying all destinations for the individual, select a new best order
-      ##to work with from the list of MIOs based on similarity to starting order
-      similarity_to_starting <- lapply(pick_next_mat, dyadic_similarity, orig)
-      most_similar <- pick_next_mat[which(similarity_to_starting == similarity_to_starting[[which.max(similarity_to_starting)]])]
-      best <- sample(unique(most_similar), 1)[[1]]
     }
     #After repeating this swapping procedure many times, add all MIOs to a final
     #list of best orders 
     final_orders[(length(final_orders)+1):(length(final_orders)+length(unique(pick_next_mat)))] <- unique(pick_next_mat)
   }
+  cat(paste0(shuff, '\n'))
   #After doing all iterations, select the best order from the final orders list
   #using select_best_mats function
   return(select_best_mats(output = unique(final_orders), initial_matrix = orig.full.mat, future_intx = future_intx, current.period))
