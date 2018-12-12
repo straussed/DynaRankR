@@ -146,10 +146,7 @@ informed_ds <- function(contestants, convention,
     working.ranks <- filter(contestants, period == periods[1])$id
   }
   
-  if(any(!working.ranks %in% filter(contestants, period == contestants$period[1])$id)){
-    stop(paste0('Not all individuals in \'initial.ranks\' in first period in \'contestants\'.
-    Remove individuals: ', paste(working.ranks[!working.ranks %in% filter(contestants, period == contestants$period[1])$id], collapse = ', ')))
-  }
+  working.ranks <- working.ranks[filter(contestants, period == periods[1])$id]
     
   
   ##Prep for first period
