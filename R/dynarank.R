@@ -158,8 +158,13 @@ dynarank <- function(contestants, convention, n=50, shuffles=10, require.corrobo
   
   ##First period
   cat(paste0('\nWorking on period ', periods[1],' (1 of ', length(periods), ' periods)'))
+  
+  ##Ensure no individuals in initial.ranks that aren't in contestants
+  initial.ranks <- initial.ranks[initial.ranks %in% filter(contestants, period == periods[1])$id]
+  
   working.ranks <- initial.ranks
   
+
   ## filter interactions to only those in this period and with these contestants
   intx.matrix <- interactions %>%
     filter(period == periods[1]) %>%
