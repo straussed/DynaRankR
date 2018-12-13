@@ -1,5 +1,5 @@
-Package: DynaRank
-Title: Inferring Dynamical Dominance Hierarchies Using Prior Information
+Package: DynaRankR
+Title: Inferring Dynamical Dominance Hierarchies
 Version: 0.1
 Authors@R: 
     person(given = "Eli",
