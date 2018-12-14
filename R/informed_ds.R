@@ -93,12 +93,13 @@ informed_ds <- function(contestants, convention,
   
   
   if(convention == 'mri'){
-    missing.moms <- which(!contestants$convention %in% contestants$id)
-    if(length(missing.moms)){
-      stop('some moms not included in contestants. Missing moms: ', paste(missing.moms, collapse = ', '))
-    }
     if(is.null(initial.ranks)){
       stop('initial.ranks must be provided if convention = mri')
+    }
+    missing.moms <- which(!contestants$convention1 %in% contestants$id &
+                            !contestants$id %in% initial.ranks)
+    if(length(missing.moms)){
+      stop('some moms not included in contestants. Missing moms: ', paste(missing.moms, collapse = ', '))
     }
   }
   
@@ -146,7 +147,7 @@ informed_ds <- function(contestants, convention,
     working.ranks <- filter(contestants, period == periods[1])$id
   }
   
-  working.ranks <- working.ranks[filter(contestants, period == periods[1])$id]
+  working.ranks <- working.ranks[working.ranks %in% filter(contestants, period == periods[1])$id]
     
   
   ##Prep for first period
@@ -158,7 +159,6 @@ informed_ds <- function(contestants, convention,
   
   
   for(current.period in periods){
-    
     new.ids <- filter(contestants, period == current.period, 
                       !id %in% rownames(current.Dij))$id
     
