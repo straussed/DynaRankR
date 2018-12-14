@@ -156,6 +156,15 @@ informed_elo <- function(contestants, convention, K = 200, lambda = 100, initial
   }
   
   for(current.period in periods){
+    
+    ##For long run, print status
+    if(length(periods) >= 500){
+      decile <- floor(length(periods)/10)
+      if(which(periods == current.period) %% decile == 0){
+        cat(paste0('\nWorking on period ', current.period,' (', which(periods == current.period), ' of ', length(periods), ' periods)'))
+      }
+    }
+    
     intx <- interactions %>%
       filter(period == current.period) %>%
       .[,c(1,2)]
