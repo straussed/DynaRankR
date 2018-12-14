@@ -96,8 +96,8 @@ informed_ds <- function(contestants, convention,
     if(is.null(initial.ranks)){
       stop('initial.ranks must be provided if convention = mri')
     }
-    missing.moms <- which(!contestants$convention1 %in% contestants$id &
-                            !contestants$id %in% initial.ranks)
+    missing.moms <- unique(contestants$convention1[which(!contestants$convention1 %in% contestants$id &
+                            !contestants$id %in% initial.ranks)])
     if(length(missing.moms)){
       stop('some moms not included in contestants. Missing moms: ', paste(missing.moms, collapse = ', '))
     }
