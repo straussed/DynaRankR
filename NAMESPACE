@@ -3,6 +3,7 @@
 export(dyadic_similarity)
 export(dynarank)
 export(edgelist_to_matrix)
+export(get_dynamics)
 export(get_edgelist)
 export(identify_inconsistencies)
 export(informed_ds)
