@@ -159,6 +159,15 @@ informed_ds <- function(contestants, convention,
   
   
   for(current.period in periods){
+    
+    ##For long run, print status
+    if(length(periods) >= 500){
+      decile <- floor(length(periods)/10)
+      if(which(periods == current.period) %% decile == 0){
+        cat(paste0('\nWorking on period ', current.period,' (', which(periods == current.period), ' of ', length(periods), ' periods)'))
+      }
+    }
+  
     new.ids <- filter(contestants, period == current.period, 
                       !id %in% rownames(current.Dij))$id
     
