@@ -1,10 +1,10 @@
 #' Calculate hierarchy dynamics 
 #' 
 #' Calculates hierarchy dynamics from an inferred longitudinal hierarchy,
-#' returning the provided longitudinal dominance hierarchy with added columns. 
-#' The function calculates hierarcy dynamics for each individual in each period
+#' returning the provided longitudinal hierarchy with added columns. 
+#' The function calculates hierarchy dynamics for each individual in each period
 #' (excluding the first period). Dynamics can be calculated in rank units or 
-#' score units by secifying the type parameter. Rank dynamics are returned as 
+#' score units by secifying the \strong{type} parameter. Rank dynamics are returned as 
 #' the total dynamics (delta), active dynamics (delta_active), and passive
 #' dynamics (delta_passive). Score dynamics are just calculated as delta. 
 #' See Strauss & Holekamp (in review) for more details.  
@@ -32,6 +32,8 @@
 #' 
 #' female.ranks.score <- get_dynamics(ranks = female.ranks, type = 'score')
 #' female.ranks.rank <- get_dynamics(ranks = female.ranks, type = 'rank')
+#' 
+#' @references Strauss ED & Holekamp KE (in revision). Journal of Animal Ecology.
 #' 
 #' @export
 

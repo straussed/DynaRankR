@@ -100,6 +100,8 @@
 #'   select(period, id, rank) %>%
 #'   plot_ranks()
 #' 
+#' @references Strauss ED & Holekamp KE (in revision). Journal of Animal Ecology.
+#' 
 #' @export
 #'
 #' 
