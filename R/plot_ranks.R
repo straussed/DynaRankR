@@ -7,10 +7,20 @@
 #'      \item{id}{The identity of each contestant. Each contestant should appear
 #'      once per study period}
 #'      \item{rank}{The rank of each contestant in each study period. This can be
-#'      absolute rank, standardized rank, or elo scores.}
+#'      absolute rank or standardized rank. Only required if \strong{type}
+#'      is 'rank'}
+#'      \item{score}{The score of each contestant. Only required if \strong{type}
+#'      is 'score'}
 #'    }
-#'
-#' @param ... Arguments to be passed to \code{\link{plot}}
+#'  
+#'  @param type A character string, either 'score' or 'rank'. Determines
+#'             whether rank dynamics or score dynamics are calculated. 
+#' 
+#' @examples female.ranks <- informed_elo(contestants = C.crocuta.female$contestants, convention = 'mri',
+#' initial.ranks = C.crocuta.female$initial.ranks,
+#' interactions = C.crocuta.female$interactions)
+#' 
+#' plot.ranks(female.ranks, type = 'rank')
 #' 
 #' @export
 

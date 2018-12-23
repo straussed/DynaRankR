@@ -19,7 +19,6 @@
 #'         number of inconsistencies in the matrix}
 #' }
 #' 
-#' @export
 #' 
 identify_inconsistencies <- function(mat){
   index_is <- c()

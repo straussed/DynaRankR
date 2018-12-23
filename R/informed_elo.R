@@ -88,6 +88,16 @@
 #'   
 #'             Albers PCH & De Vries H (2000). Animal Behavior, 61, 489-495. 
 #'
+#'@examples 
+#' ##Informed elo
+#' female.ranks <- informed_elo(contestants = C.crocuta.female$contestants, convention = 'mri',
+#' initial.ranks = C.crocuta.female$initial.ranks,
+#' interactions = C.crocuta.female$interactions)
+#' 
+#' ##Standard elo
+#' female.ranks <- informed_elo(contestants = C.crocuta.female$contestants, convention = 'none',
+#' interactions = C.crocuta.female$interactions)
+#'
 #'@export
 #'
 informed_elo <- function(contestants, convention, K = 200, lambda = 100, initial.ranks = NULL, interactions){

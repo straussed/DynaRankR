@@ -15,6 +15,10 @@
 #'         This value is 1 if the orders are identical and 0 if the orders are
 #'         exact opposites. 
 #' 
+#' @examples 
+#' 
+#' dyadic_similarity(sample(letters[1:20]), sample(letters[1:20]))
+#' 
 #' @export
 #' 
 dyadic_similarity <- function(order1, order2){

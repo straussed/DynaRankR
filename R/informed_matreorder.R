@@ -1,7 +1,7 @@
-#' Infer latent hierarchy from longitudinal data incorporating prior information
+#' Infer longitudinal hierarchy using informed matrix reordering
 #' 
 #' Implements the method described in Strauss & Holekamp (in revision). For each
-#' study period, ranks are inferred as modifications of theranks from the previous
+#' study period, ranks are inferred as modifications of the ranks from the previous
 #' study period. First, new contestants are added according to the convention specified
 #' by the user, and emigrated/dead contestants are removed. Then, matrix reordering is used
 #' to change the position of contestants for whom data from the current study period
@@ -91,7 +91,7 @@
 #' @references Strauss & Holekamp (in revision). Journal of Animal Ecology.
 #' @import dplyr
 #' 
-#' @examples female.ranks <- dynarank(contestants = C.crocuta.female$contestants, convention = 'mri',
+#' @examples female.ranks <- informed_matreorder(contestants = C.crocuta.female$contestants, convention = 'mri',
 #' n = 50, shuffles = 10, require.corroboration = TRUE, 
 #' initial.ranks = C.crocuta.female$initial.ranks,
 #' interactions = C.crocuta.female$interactions)
@@ -105,7 +105,7 @@
 #' @export
 #'
 #' 
-dynarank <- function(contestants, convention, n=50, shuffles=10, require.corroboration = FALSE, 
+informed_matreorder <- function(contestants, convention, n=50, shuffles=10, require.corroboration = FALSE, 
                      initial.ranks = NULL, interactions){
   periods <- unique(contestants$period)
   

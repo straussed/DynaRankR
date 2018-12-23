@@ -19,21 +19,21 @@ columns:
                score dynamics.}
   }}
 
-\item{type}{A character string containing either 'score' or 'rank'. Determines
-whether rank dynamics or score dynamics are returned.}
+\item{type}{A character string, either 'score' or 'rank'. Determines
+whether rank dynamics or score dynamics are calculated.}
 }
 \value{
 Returns the supplied dataframe with new column(s) for hierarchy dynamics.
 }
 \description{
 Calculates hierarchy dynamics from an inferred longitudinal hierarchy,
-returning the provided longitudinal dominance hierarchy with added columns. 
-The function calculates hierarcy dynamics for each individual in each period
+returning the provided longitudinal hierarchy with added columns. 
+The function calculates hierarchy dynamics for each individual in each period
 (excluding the first period). Dynamics can be calculated in rank units or 
-score units by secifying the type parameter. Rank dynamics are returned as 
+score units by secifying the \strong{type} parameter. Rank dynamics are returned as 
 the total dynamics (delta), active dynamics (delta_active), and passive
 dynamics (delta_passive). Score dynamics are just calculated as delta. 
-See Strauss & Holekamp (in review) for more details.
+See Strauss & Holekamp (in revision) for more details.
 }
 \examples{
 female.ranks <- informed_elo(contestants = C.crocuta.female$contestants, convention = 'mri',
@@ -43,4 +43,7 @@ interactions = C.crocuta.female$interactions)
 female.ranks.score <- get_dynamics(ranks = female.ranks, type = 'score')
 female.ranks.rank <- get_dynamics(ranks = female.ranks, type = 'rank')
 
+}
+\references{
+Strauss ED & Holekamp KE (in revision). Journal of Animal Ecology.
 }

@@ -1,12 +1,9 @@
 Package: DynaRankR
-Title: Inferring Dynamical Dominance Hierarchies
+Title: Inferring Longitudinal Dominance Hierarchies
 Version: 0.1
-Authors@R: 
-    person(given = "Eli",
-           family = "Strauss",
-           role = c("aut", "cre"),
-           email = "straussed@gmail.com")
-Description: 
+Author: Eli D. Strauss 
+Maintainer: Eli D. Strauss <straussed@gmail.com>
+Description: Provides functions for inferring longitudinal dominance hierarchies, which describe dominance relationships and their dynamics in a single latent hierarchy over time. 
 License: GPL-2
 Encoding: UTF-8
 RoxygenNote: 6.1.0.9000

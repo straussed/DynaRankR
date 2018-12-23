@@ -9,6 +9,11 @@
 #' @return Produces an interaction matrix with winners in the rows and losers in the columns. 
 #'         Contestants are arranged according to the order specified by identities.  
 #' 
+#' @examples edges <- C.crocuta.female$interactions[C.crocuta.female$interactions$period == 1989,1:2]
+#' ids <- C.crocuta.female$contestants[C.crocuta.female$contestants$period == 1989,'id']
+#' edgelist_to_matrix(edgelist = edges, identities = ids)
+#' 
+#' 
 #' @export
 #' 
 edgelist_to_matrix <- function(edgelist, identities){
@@ -27,6 +32,13 @@ edgelist_to_matrix <- function(edgelist, identities){
 #' 
 #' @param mat Interaction matrix containing outcomes of interactions. 
 #' @return A two-column dataframe with winners in first column and losers in the second column.
+#' 
+#' @examples 
+#' edges <- C.crocuta.female$interactions[C.crocuta.female$interactions$period == 1989,1:2]
+#' ids <- C.crocuta.female$contestants[C.crocuta.female$contestants$period == 1989,'id']
+#' mat <- edgelist_to_matrix(edgelist = edges, identities = ids)
+#' get_edgelist(mat) 
+#'
 #' @export
 
 get_edgelist <- function(mat){

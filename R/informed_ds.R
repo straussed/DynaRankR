@@ -83,7 +83,16 @@
 #' @references Strauss ED & Holekamp KE (in revision). Journal of Animal Ecology.
 #'   
 #'             de Vries H, Stevens JMG, Vervaecke H (2006). Animal Behavior,71,585-592.
-#'             
+#'
+#'@examples 
+#' ##Informed ds
+#' female.ranks <- informed_ds(contestants = C.crocuta.female$contestants, convention = 'mri',
+#' initial.ranks = C.crocuta.female$initial.ranks,
+#' interactions = C.crocuta.female$interactions)
+#' 
+#' ##Standard ds
+#' female.ranks <- informed_ds(contestants = C.crocuta.female$contestants, convention = 'none',
+#' interactions = C.crocuta.female$interactions)                          
 #'
 #'@export
 
