@@ -7,7 +7,7 @@
 #' score units by secifying the \strong{type} parameter. Rank dynamics are returned as 
 #' the total dynamics (delta), active dynamics (delta_active), and passive
 #' dynamics (delta_passive). Score dynamics are just calculated as delta. 
-#' See Strauss & Holekamp (in review) for more details.  
+#' See Strauss & Holekamp (in revision) for more details.  
 #' 
 #' @param ranks A dataframe such as the output of the ranking functions provided
 #'              in the DynaRankR package. Should include at least the following 
@@ -21,8 +21,8 @@
 #'                             score dynamics.}
 #'                }
 #' 
-#' @param type A character string containing either 'score' or 'rank'. Determines
-#'             whether rank dynamics or score dynamics are returned. 
+#' @param type A character string, either 'score' or 'rank'. Determines
+#'             whether rank dynamics or score dynamics are calculated. 
 #'
 #' @return Returns the supplied dataframe with new column(s) for hierarchy dynamics. 
 #' 
