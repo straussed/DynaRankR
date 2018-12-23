@@ -186,6 +186,15 @@ informed_elo <- function(contestants, convention, K = 200, lambda = 100, initial
     ## Remove dead or emigrated individuals
     dead <- which(!current.scores$id %in% filter(contestants, period == current.period)$id)
     if(length(dead)){current.scores <- current.scores[-dead,]}
+    
+    ###Check to ensure all individuals in intx for current period are included
+    ###in contestants for current period.
+    intx.no.contestants <- c(intx$winner[!intx$winner %in% current.scores$id],
+                             intx$loser[!intx$loser %in% current.scores$id])
+    if(length(intx.no.contestants)){
+      intx <- filter(intx, !winner %in% intx.no.contestants, 
+                     !loser %in% intx.no.contestants)
+    }
       
       for(i in 1:nrow(intx)){
         initial.ranks <- current.scores$id
