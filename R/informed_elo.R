@@ -18,7 +18,8 @@
 #'                      \item{convention1}{The primary convention by which new
 #'                      individuals are added to the hierarchy. Interpretation
 #'                      of this column varies depending on the value of the 
-#'                      \strong{convention} argument.}
+#'                      \strong{convention} argument. If not using a convention, 
+#'                      this column is optional.}
 #'                      \item{convention2}{Optional. The secondary data for 
 #'                      resolving ties in convention1. Interpretation
 #'                      of this column varies depending on the value of the 
