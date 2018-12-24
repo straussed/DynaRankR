@@ -57,7 +57,7 @@ add_new_ids_tenure_elo <- function(new.ids, current.scores, contestants, period)
     conts.ordered <- arrange(conts.this.period, convention1)
   }
   for(nid in new.ids$id){
-    prob = 1 - (which(nid == conts.ordered$id)-1)/nrow(conts.ordered)
+    prob = 1 - (which(nid == conts.ordered$id)-1)/(nrow(conts.ordered)-1)
     new.scores[which(nid == new.ids$id),]<- c(nid, 
                                               quantile(current.scores$score, probs = prob))
   }
@@ -83,7 +83,7 @@ add_new_ids_phys_attr_elo <- function(new.ids, current.scores, contestants, peri
     conts.ordered <- arrange(conts.this.period, desc(convention1))
   }
   for(nid in new.ids$id){
-    prob = 1 - (which(nid == conts.ordered$id)-1)/nrow(conts.ordered)
+    prob = 1 - (which(nid == conts.ordered$id)-1)/(nrow(conts.ordered)-1)
     new.scores[which(nid == new.ids$id),]<- c(nid, 
                                               quantile(current.scores$score, probs = prob))
   }
