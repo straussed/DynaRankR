@@ -1,7 +1,8 @@
 #' David\'s Score method informed by prior information
 #'
 #' Use David\'s score method to infer dominance hierarchy over multiple study periods.
-#' New contestants are added according to the convention specified by the user. 
+#' New contestants are added according to the convention specified by the user.
+#' Scores are calculated using Dij and normalized.  
 #' Full description of the addition of new individuals is described
 #' in Strauss & Holekamp (in revision). To run the original David's Scores procedure,
 #' use convention flag 'none'. 
