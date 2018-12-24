@@ -71,7 +71,7 @@ add_new_ids_tenure <- function(new.ids, working.ranks, contestants, period){
   return(working.ranks)
 }
 
-add_new_ids_age <- function(new.ids, working.ranks, contestants, period){
+add_new_ids_phys_attr <- function(new.ids, working.ranks, contestants, period){
   new.ids <- contestants[contestants$id %in% new.ids &
                            contestants$period == period,]
   
@@ -92,4 +92,4 @@ add_new_ids_age <- function(new.ids, working.ranks, contestants, period){
   return(working.ranks)
 }
 
-add_new_ids_phys_attr <- add_new_ids_age
+add_new_ids_age <- add_new_ids_tenure
