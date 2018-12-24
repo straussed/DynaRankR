@@ -120,7 +120,7 @@ informed_matreorder <- function(contestants, convention, n=50, shuffles=10, requ
     }
   }
   
-  if(is.null(initial.ranks) & convention == 'tenure'){
+  if(is.null(initial.ranks) & convention %in% c('age', 'tenure')){
     if('convention2' %in% names(contestants)){
       initial.ranks <- filter(contestants, period == periods[1]) %>% 
         arrange(convention1, desc(convention2)) %>%
@@ -130,7 +130,7 @@ informed_matreorder <- function(contestants, convention, n=50, shuffles=10, requ
         arrange(convention1) %>% 
         dplyr::pull(id)
     }
-  }else if(is.null(initial.ranks) & convention %in% c('age', 'phys_attr')){
+  }else if(is.null(initial.ranks) & convention %in% c('phys_attr')){
     if('convention2' %in% names(contestants)){
       initial.ranks <- filter(contestants, period == periods[1]) %>% 
         arrange(desc(convention1), desc(convention2)) %>%
