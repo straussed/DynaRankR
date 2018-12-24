@@ -76,7 +76,7 @@ add_new_ids_phys_attr <- function(new.ids, working.ranks, contestants, period){
                            contestants$period == period,]
   
   if(any(!sapply(new.ids[1,startsWith(names(new.ids), 'convention')], class) %in% c('Date', 'numeric'))){
-    stop('Conventions must be dates or numeric')
+    stop('Conventions must be numeric')
   }
   
   conts.this.period <- contestants[contestants$period == period,]

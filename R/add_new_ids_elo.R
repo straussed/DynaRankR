@@ -72,7 +72,7 @@ add_new_ids_phys_attr_elo <- function(new.ids, current.scores, contestants, peri
                            contestants$period == period,]
   
   if(any(!sapply(new.ids[1,startsWith(names(new.ids), 'convention')], class) %in% c('Date', 'numeric'))){
-    stop('Conventions must be dates or numeric')
+    stop('Conventions must be numeric')
   }
   
   conts.this.period <- contestants[contestants$period == period,]
