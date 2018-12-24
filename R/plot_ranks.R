@@ -29,7 +29,7 @@
 plot_ranks <- function(ranks, type = c('rank', 'stan.rank', 'score')){
   
   if(length(type) > 1){
-    type == 'rank'
+    type <- 'rank'
     warning('Defaulting to type = rank')
   }
   
