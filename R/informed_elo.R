@@ -3,7 +3,8 @@
 #' Use Elo-rating method to infer dominance hierarchy over multiple study periods.
 #' New contestants are added according to the convention specified by the user. 
 #' Full description of the addition of new individuals is described
-#' in Strauss & Holekamp (in revision). 
+#' in Strauss & Holekamp (in revision). To run the original Elo-rating procedure,
+#' use convention flag 'none'. 
 #' 
 #' @param contestants A dataframe with the identities of the contestants for 
 #'                    each study period along with relevant data for 
@@ -26,8 +27,11 @@
 #' @param convention A flag determining how new individuals are added to the
 #'                   hierarchy. The value of this flag influences how the convention1
 #'                   and convention2 columns of the contestants argument are interpreted.
-#'                   Currently this function supports four options:
+#'                   Currently this function supports five options:
 #'                   \describe{
+#'                    \item{none}{The standard Elo-rating procedure is run. 
+#'                    Individuals joining the hierarchy receive a score equal to 
+#'                    the mean of other group members.}
 #'                    \item{mri}{New contestants are added to the hierarchy
 #'                    according to maternal rank inheritance with youngest
 #'                    ascendancy. \strong{convention1} should be a vector of 

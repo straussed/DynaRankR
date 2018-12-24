@@ -3,7 +3,8 @@
 #' Use David\'s score method to infer dominance hierarchy over multiple study periods.
 #' New contestants are added according to the convention specified by the user. 
 #' Full description of the addition of new individuals is described
-#' in Strauss & Holekamp (in revision). 
+#' in Strauss & Holekamp (in revision). To run the original David's Scores procedure,
+#' use convention flag 'none'. 
 #' 
 #'
 #'@param contestants A dataframe with the identities of the contestants for 
@@ -27,8 +28,11 @@
 #' @param convention A flag determining how new individuals are added to the
 #'                   hierarchy. The value of this flag influences how the convention1
 #'                   and convention2 columns of the contestants argument are interpreted.
-#'                   Currently this function supports four options:
+#'                   Currently this function supports five options:
 #'                   \describe{
+#'                    \item{none}{The standard David's Score procedure (usig Dij) is run. 
+#'                    Individuals are not added according to prior information 
+#'                    and scores are calculated independently for each period.}
 #'                    \item{mri}{New contestants are added to the hierarchy
 #'                    according to maternal rank inheritance with youngest
 #'                    ascendancy. \strong{convention1} should be a vector of 
