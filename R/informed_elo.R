@@ -119,7 +119,7 @@ informed_elo <- function(contestants, convention, K = 200, lambda = 100, initial
     }
   }
   
-  if(is.null(initial.ranks) & convention == 'tenure'){
+  if(is.null(initial.ranks) & convention %in% c('age', 'tenure')){
     if('convention2' %in% names(contestants)){
       initial.ranks <- filter(contestants, period == periods[1]) %>% 
         arrange(convention1, desc(convention2)) %>%
@@ -129,7 +129,7 @@ informed_elo <- function(contestants, convention, K = 200, lambda = 100, initial
         arrange(convention1) %>% 
         dplyr::pull(id)
     }
-  }else if(is.null(initial.ranks) & convention %in% c('age', 'phys_attr')){
+  }else if(is.null(initial.ranks) & convention %in% c('phys_attr')){
     if('convention2' %in% names(contestants)){
       initial.ranks <- filter(contestants, period == periods[1]) %>% 
         arrange(desc(convention1), desc(convention2)) %>%
@@ -144,8 +144,12 @@ informed_elo <- function(contestants, convention, K = 200, lambda = 100, initial
   if(!convention %in% c('mri','tenure','age','phys_attr','none'))
     stop('convention not recognized. Must be one of: \'mri\', \'tenure\', \'age\', \'phys_attr\', \'none\'')
   
-  if(any(!c('period', 'id', 'convention1') %in% names(contestants)))
+  
+  if(convention != 'none' & any(!c('period', 'id', 'convention1') %in% names(contestants))){
+    stop('contestants dataframe missing \'period\' or \'id\' column')
+  }else if(any(!c('period', 'id') %in% names(contestants))){
     stop('contestants dataframe missing \'period\', \'id\', or \'convention1\' column')
+  }
   
   if(any(!c('winner', 'loser', 'period') %in% names(interactions)))
     stop('interactions dataframe missing \'winner\', \'loser\', or \'period\' column')
