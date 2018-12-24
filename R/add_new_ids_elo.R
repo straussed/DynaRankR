@@ -35,6 +35,7 @@ add_new_ids_mri_elo <- function(new.ids, current.scores, contestants, period, pe
       }
     }
   }
+  new.scores$score <- as.numeric(new.scores$score)
   return(new.scores)
 }
 
@@ -60,6 +61,7 @@ add_new_ids_tenure_elo <- function(new.ids, current.scores, contestants, period)
     new.scores[which(nid == new.ids$id),]<- c(nid, 
                                               quantile(current.scores$score, probs = prob))
   }
+  new.scores$score <- as.numeric(new.scores$score)
   return(new.scores)
 }
 
@@ -85,6 +87,7 @@ add_new_ids_phys_attr_elo <- function(new.ids, current.scores, contestants, peri
     new.scores[which(nid == new.ids$id),]<- c(nid, 
                                               quantile(current.scores$score, probs = prob))
   }
+  new.scores$score <- as.numeric(new.scores$score)
   return(new.scores)
 }
 add_new_ids_age_elo <- add_new_ids_tenure_elo
