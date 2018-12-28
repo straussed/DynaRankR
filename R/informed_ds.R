@@ -195,7 +195,7 @@ informed_ds <- function(contestants, convention,
                               mri = add_new_ids_mri(new.ids, working.ranks, contestants, current.period, periods, ranks),
                               tenure = add_new_ids_tenure(new.ids, working.ranks, contestants, current.period),
                               age = add_new_ids_age(new.ids, working.ranks, contestants, current.period),
-                              phys_attr = DynaRank:::add_new_ids_phys_attr(new.ids, working.ranks, contestants, current.period),
+                              phys_attr = add_new_ids_phys_attr(new.ids, working.ranks, contestants, current.period),
                               none = c(working.ranks, new.ids))
       new.ids <- NULL
     }
