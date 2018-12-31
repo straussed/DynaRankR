@@ -1,6 +1,6 @@
-#' David\'s Score method informed by prior information
+#' David's Score method informed by prior information
 #'
-#' Use David\'s score method to infer dominance hierarchy over multiple study periods.
+#' Use David's Score method to infer a dominance hierarchy over multiple study periods.
 #' New contestants are added according to the convention specified by the user.
 #' Scores are calculated using Dij and normalized.  
 #' Full description of the addition of new individuals is described
@@ -20,7 +20,7 @@
 #'                      \item{convention1}{The primary convention by which new
 #'                      individuals are added to the hierarchy. Interpretation
 #'                      of this column varies depending on the value of the 
-#'                      \strong{convention} argument. If not using a convention, 
+#'                      \strong{convention} argument. If \strong{convention} = none, 
 #'                      this column is optional.}
 #'                      \item{convention2}{Optional. The secondary data for 
 #'                      resolving ties in convention1. Interpretation
@@ -45,7 +45,10 @@
 #'                    joining the hierarchy in the same study period.}
 #'                    \item{tenure}{New contestants are added to the hierarchy
 #'                    according their tenure in the group. \strong{convention1} should be a vector of 
-#'                    dates that each contestant joined the group.}
+#'                    dates that each contestant joined the group.\strong{convention2} should be an
+#'                    optional vector of numerical data for resolving ties
+#'                    in convention1 (e.g., body size). Higher values are 
+#'                    considered higher rank.}
 #'                    \item{age}{New contestants are added to the hierarchy
 #'                    according their age (older = higher rank).
 #'                    \strong{convention1} should be a vector of birthdates or 
@@ -63,7 +66,9 @@
 #'                   }
 #' 
 #' @param initial.ranks The initial ordering of individuals for the first study
-#'        period. Required if using maternal rank inheritance as the convention.
+#'        period. Required if using maternal rank inheritance as the convention;
+#'        For other conventions, if initial.ranks is not specified,
+#'         the order determined by convention1 is used to create the initial order. 
 #' 
 #' @param interactions A dataframe of interaction data with the following columns:
 #'         \describe{
@@ -75,7 +80,7 @@
 #'          \describe{
 #'          \item{period}{Study period}
 #'          \item{id}{Identitity of contestant}
-#'          \item{score}{David's score of contestant}
+#'          \item{score}{David's Score of contestant}
 #'          \item{rank}{Ordinal rank of contestant in study period. Lower numbers
 #'          equal higher rank.}
 #'          \item{stan.rank}{Rank of contestant standardized for group size.
@@ -88,7 +93,7 @@
 #' 
 #' @references Strauss ED & Holekamp KE (in revision). Journal of Animal Ecology.
 #'   
-#'             de Vries H, Stevens JMG, Vervaecke H (2006). Animal Behavior,71,585-592.
+#'             de Vries H, Stevens JMG, Vervaecke H (2006). Animal Behavior.
 #'
 #'@examples 
 #' ##Informed ds

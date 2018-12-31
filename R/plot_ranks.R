@@ -1,7 +1,9 @@
+#' Plot individual ranks or scores
+#' 
 #' Plot ranks of individuals in a single social group over multiple study periods
 #' 
 #' @param ranks A dataframe of ranks. There should be one row per contestant per
-#' study period. There should be three columns:
+#' study period. Must include at least the following columns:
 #'    \describe{
 #'      \item{period}{Study periods. They should appear in chronological order.}
 #'      \item{id}{The identity of each contestant. Each contestant should appear
@@ -13,7 +15,7 @@
 #'      is 'score'}
 #'    }
 #'  
-#'  @param type A character string, either 'score', 'rank', or 'stan.rank'. Determines
+#' @param type A character string, either 'score', 'rank', or 'stan.rank'. Determines
 #'             whether scores, ranks, or standardized ranks are plotted. 
 #' 
 #' @examples female.ranks <- informed_elo(contestants = C.crocuta.female$contestants, convention = 'mri',
@@ -77,3 +79,4 @@ plot_ranks <- function(ranks, type = c('rank', 'stan.rank', 'score')){
     }
   }
 }
+

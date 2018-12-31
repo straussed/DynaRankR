@@ -2,7 +2,7 @@
 % Please edit documentation in R/informed_matreorder.R
 \name{informed_matreorder}
 \alias{informed_matreorder}
-\title{Infer latent hierarchy from longitudinal data incorporating prior information}
+\title{Infer longitudinal hierarchy using informed matrix reordering}
 \usage{
 informed_matreorder(contestants, convention, n = 50, shuffles = 10,
   require.corroboration = FALSE, initial.ranks = NULL, interactions)
@@ -42,7 +42,10 @@ Currently this function supports four options:
  joining the hierarchy in the same study period.}
  \item{tenure}{New contestants are added to the hierarchy
  according their tenure in the group. \strong{convention1} should be a vector of 
- dates that each contestant joined the group.}
+ dates that each contestant joined the group.\strong{convention2} should be an
+ optional vector of numerical data for resolving ties
+ in convention1 (e.g., body size). Higher values are 
+ considered higher rank.}
  \item{age}{New contestants are added to the hierarchy
  according their age (older = higher rank).
  \strong{convention1} should be a vector of birthdates or 
@@ -59,17 +62,22 @@ Currently this function supports four options:
  considered higher rank.}
 }}
 
-\item{n}{Number of separate reordering attempts per study period. Recommended 10-100.}
+\item{n}{Number of separate reordering attempts per study period. Recommended 100.}
 
-\item{shuffles}{Number of reshuffling steps per reordering attempt. Recommended 10.}
+\item{shuffles}{Number of reshuffling steps per reordering attempt. Recommended at least 10.}
 
 \item{require.corroboration}{A logical indicating whether to require corroborating
-evidence from multiple study periods before changing an contestant's position
+evidence from multiple study periods before changing a contestant's position
 in the order. Useful for reducing the sensitivity of the method to abarrent
-observations that don't reflect a lasting change in the true latent order.}
+observations that don't reflect a lasting change in the true latent hierarchy.
+If true, evidence indicating a change in status must be corroborated by
+an additional observation in the following periods. See Strauss & Holekamp
+(in revision) for full details.}
 
 \item{initial.ranks}{The initial ordering of individuals for the first study
-period. Required if using maternal rank inheritance as the convention.}
+period. Required if using maternal rank inheritance as the convention;
+For other conventions, if initial.ranks is not specified,
+ the order determined by convention1 is used to create the initial order.}
 
 \item{interactions}{A dataframe of interaction data with the following columns:
 \describe{
@@ -88,11 +96,13 @@ Produces a dataframe with columnes:
          Values range from 1 (highest rank) to -1 (lowest rank).}
          \item{old.order}{Identity of contestants arranged in the order they
          were in before updating the order based on observations from current
-         study period.}}
+         study period.}
+       }
 }
 \description{
-Implements the method described in Strauss & Holekamp (in revision). For each
-study period, ranks are inferred as modifications of theranks from the previous
+Implements the Informed MatReorder method described in Strauss & Holekamp (in revision)
+to infer a dominance hierarchy over multiple study periods. For each
+study period, ranks are inferred as modifications of the ranks from the previous
 study period. First, new contestants are added according to the convention specified
 by the user, and emigrated/dead contestants are removed. Then, matrix reordering is used
 to change the position of contestants for whom data from the current study period
@@ -106,13 +116,8 @@ n = 50, shuffles = 10, require.corroboration = TRUE,
 initial.ranks = C.crocuta.female$initial.ranks,
 interactions = C.crocuta.female$interactions)
 
-female.ranks \%>\%  
-  select(period, id, rank) \%>\%
-  plot_ranks()
 
 }
 \references{
-Strauss & Holekamp (in revision). Journal of Animal Ecology.
-
 Strauss ED & Holekamp KE (in revision). Journal of Animal Ecology.
 }

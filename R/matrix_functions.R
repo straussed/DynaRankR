@@ -1,10 +1,10 @@
-#' Convert data in edgelist to interaction matrix
+#' Convert data from edgelist to interaction matrix
 #' 
 #' This function converts data in edgelist format to an interaction matrix
 #' 
 #' @param edgelist A 2-column matrix or dataframe with the identities of winners in the first column and losers in the second column.
-#' @param identities A list of contestant identities (useful if not all contestants are in  the edgelist). 
-#'        This list also dictates the order in which contestants are arranged in the resulting matrix. 
+#' @param identities A list of contestant identities. 
+#'        This list dictates the order in which contestants are arranged in the resulting matrix. 
 #' 
 #' @return Produces an interaction matrix with winners in the rows and losers in the columns. 
 #'         Contestants are arranged according to the order specified by identities.  
@@ -26,11 +26,12 @@ edgelist_to_matrix <- function(edgelist, identities){
   return(mat)
 }
 
-#' Convert data in an interaction matrix to edgelist
+#' Convert data from interaction matrix to edgelist
 #' 
 #' This function converts data in an interaction matrix to edgelist format
 #' 
-#' @param mat Interaction matrix containing outcomes of interactions. 
+#' @param mat Interaction matrix containing outcomes of interactions. Dimension names
+#'        are interpreted as the individual identities. 
 #' @return A two-column dataframe with winners in first column and losers in the second column.
 #' 
 #' @examples 
@@ -54,15 +55,6 @@ get_edgelist <- function(mat){
   return(edgelist)
 }
 
-#' Binarize an interaction matrix
-#' 
-#' This function converts raw count data in an interaction matrix to binary outcomes. 
-#'      1 = row beats column more than vice versa; 
-#'      -1 = row loses to column more than vice versa;
-#'      0 = row and column individuals win the same number of times (this could be 0 each)
-#' 
-#' @param mat Interaction matrix containing raw counts of outcomes of interactions. 
-#' @return Interaction matrix containing binarized outcomes of interactions. 
 binarize_mat <- function(mat){
   return(
     ifelse(mat > t(mat), 1, ifelse(mat < t(mat), -1, 0))

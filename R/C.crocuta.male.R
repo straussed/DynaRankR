@@ -1,9 +1,9 @@
-#' Female spotted hyena dominance data
+#' Male spotted hyena dominance data
 #' 
 #' Data structures for inferring the ranks of adult male spotted hyenas
 #' (Crocuta crocuta) from a single social group in the Maasai Mara National
 #' Reserve in southern Kenya. Data are from the Talek clan collected between
-#'  1988 and 1995 by the Maasai Mara Hyena Project.
+#'  1988 and 1995 by the Mara Hyena Project.
 #' 
 #' @format List of 3 elements:
 #'  \describe{

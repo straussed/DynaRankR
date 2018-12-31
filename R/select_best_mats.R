@@ -1,4 +1,3 @@
-#' # Select best mats
 #' @importFrom dplyr "%>%"
 select_best_mats <- function(output, initial_matrix, future_intx, current.period){
   x <- lapply(output, identify_inconsistencies)

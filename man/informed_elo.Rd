@@ -20,7 +20,8 @@ informed_elo(contestants, convention, K = 200, lambda = 100,
                      \item{convention1}{The primary convention by which new
                      individuals are added to the hierarchy. Interpretation
                      of this column varies depending on the value of the 
-                     \strong{convention} argument.}
+                     \strong{convention} argument. If \strong{convention} = none, 
+                     this column is optional.}
                      \item{convention2}{Optional. The secondary data for 
                      resolving ties in convention1. Interpretation
                      of this column varies depending on the value of the 
@@ -30,8 +31,11 @@ informed_elo(contestants, convention, K = 200, lambda = 100,
 \item{convention}{A flag determining how new individuals are added to the
 hierarchy. The value of this flag influences how the convention1
 and convention2 columns of the contestants argument are interpreted.
-Currently this function supports four options:
+Currently this function supports five options:
 \describe{
+ \item{none}{The standard Elo-rating procedure is run. 
+ Individuals joining the hierarchy receive a score equal to 
+ the mean of other group members.}
  \item{mri}{New contestants are added to the hierarchy
  according to maternal rank inheritance with youngest
  ascendancy. \strong{convention1} should be a vector of 
@@ -42,7 +46,10 @@ Currently this function supports four options:
  joining the hierarchy in the same study period.}
  \item{tenure}{New contestants are added to the hierarchy
  according their tenure in the group. \strong{convention1} should be a vector of 
- dates that each contestant joined the group.}
+ dates that each contestant joined the group. \strong{convention2} should be an
+ optional vector of numerical data for resolving ties
+ in convention1 (e.g., body size). Higher values are 
+ considered higher rank.}
  \item{age}{New contestants are added to the hierarchy
  according their age (older = higher rank).
  \strong{convention1} should be a vector of birthdates or 
@@ -66,7 +73,9 @@ linking the difference in score between winner and loser
 to the expected probability of each contestant winning.}
 
 \item{initial.ranks}{The initial ordering of individuals for the first study
-period. Required if using maternal rank inheritance as the convention.}
+period. Required if using maternal rank inheritance as the convention;
+For other conventions, if initial.ranks is not specified,
+ the order determined by convention1 is used to create the initial order.}
 
 \item{interactions}{A dataframe of interaction data with the following columns:
 \describe{
@@ -79,7 +88,7 @@ Produces a dataframe with columnes:
          \describe{
          \item{period}{Study period}
          \item{id}{Identitity of contestant}
-         \item{score}{Elo score of contestant}
+         \item{score}{Elo-rating score of contestant}
          \item{rank}{Ordinal rank of contestant in study period. Lower numbers
          equal higher rank.}
          \item{stan.rank}{Rank of contestant standardized for group size.
@@ -89,10 +98,22 @@ Produces a dataframe with columnes:
          study period.}}
 }
 \description{
-Use Elo-rating method to infer dominance hierarchy over multiple study periods.
+Use Elo-rating method to infer a dominance hierarchy over multiple study periods.
 New contestants are added according to the convention specified by the user. 
 Full description of the addition of new individuals is described
-in Strauss & Holekamp (in revision).
+in Strauss & Holekamp (in revision). To run the original Elo-rating procedure,
+use convention flag 'none'.
+}
+\examples{
+##Informed elo
+female.ranks <- informed_elo(contestants = C.crocuta.female$contestants, convention = 'mri',
+initial.ranks = C.crocuta.female$initial.ranks,
+interactions = C.crocuta.female$interactions)
+
+##Standard elo
+female.ranks <- informed_elo(contestants = C.crocuta.female$contestants, convention = 'none',
+interactions = C.crocuta.female$interactions)
+
 }
 \references{
 Strauss ED & Holekamp KE (in revision). Journal of Animal Ecology.

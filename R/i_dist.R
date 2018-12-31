@@ -1,27 +1,3 @@
-#' Update rank order based on interaction data
-#' 
-#' This function updates the initial rank order based on the interaction data from the
-#'      current study period. The order is altered to meet two criteria: first, 
-#'      rank orders are rearranged to minimize the number of inconsistencies (i.e.,
-#'      dyads for which observations from this year suggest the opposite dominance
-#'      relationship). Second, the optimal order is selected as the order with
-#'      minimal inconsistencies that is most similar to the starting order. 
-#' 
-#' @param mat A raw (i.e., not binarized) interaction matrix with winners as rows and losers as columns. 
-#'            The orders of the individuals in the rows and columns 
-#'            must be identical and are treated as the initial rank ordering.
-#' @param n The number of reordering attempts to be undertaken
-#' @param shuffles The number of shuffling steps taken per reordering attempt
-#' @param future_intx A raw (i.e., not binarized) interaction matrix with 
-#'        interaction outcomes from future study periods involving the individuals
-#'        in mat. Used to resolve ties for most optimal ordering.
-#'        
-#' @param current.period The current period under consideration.
-#' 
-#' @return An interaction matrix reorderd to minimize inconsistencies with minimal changes
-#' 
-#' 
-
 i_dist <- function(mat, n, shuffles, future_intx, current.period){
   ##Full matrix of interactions
   orig.full.mat <- mat

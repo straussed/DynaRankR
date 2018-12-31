@@ -8,10 +8,12 @@ dyadic_similarity(order1, order2)
 }
 \arguments{
 \item{order1}{The first rank ordering to be compared. Alternatively, this can
-be supplied as an interaction matrix.}
+be supplied as an interaction matrix with identities as the dimension names.
+All identities in order1 must be in order2.}
 
 \item{order2}{The second rank ordering to be compared. Alternatively, this can
-be supplied as an interaction matrix.}
+be supplied as an interaction matrixwith identities as the dimension names. 
+All identities in order2 must be in order1.}
 }
 \value{
 The proportion of dyadic relationship that are shared by the two orders
@@ -19,9 +21,16 @@ The proportion of dyadic relationship that are shared by the two orders
         exact opposites.
 }
 \description{
-This function compares two rank orderings. For an order of length \emph{n} 
+This function compares two rank orderings that have the same elements. 
+     For an order of length \emph{n} 
      there are \emph{n choose 2} dyadic relationships implied by that order. 
      For example, the order {a, b, c} implies that a > b, a  > c, and b > c.
      The dyadic similarity between two orders is the proportion of implied 
-     dyadic relationship that are shared by the two orders.
+     dyadic relationships that are shared by the two orders.
+}
+\examples{
+dyadic_similarity(letters[1:20], letters[1:20]) #identical orders
+dyadic_similarity(letters[1:20], letters[20:1]) #opposite orders
+dyadic_similarity(sample(letters[1:20]), sample(letters[1:20])) #random orders
+
 }

@@ -2,15 +2,15 @@
 % Please edit documentation in R/matrix_functions.R
 \name{edgelist_to_matrix}
 \alias{edgelist_to_matrix}
-\title{Convert data in edgelist to interaction matrix}
+\title{Convert data from edgelist to interaction matrix}
 \usage{
 edgelist_to_matrix(edgelist, identities)
 }
 \arguments{
 \item{edgelist}{A 2-column matrix or dataframe with the identities of winners in the first column and losers in the second column.}
 
-\item{identities}{A list of contestant identities (useful if not all contestants are in  the edgelist). 
-This list also dictates the order in which contestants are arranged in the resulting matrix.}
+\item{identities}{A list of contestant identities. 
+This list dictates the order in which contestants are arranged in the resulting matrix.}
 }
 \value{
 Produces an interaction matrix with winners in the rows and losers in the columns. 
@@ -18,4 +18,11 @@ Produces an interaction matrix with winners in the rows and losers in the column
 }
 \description{
 This function converts data in edgelist format to an interaction matrix
+}
+\examples{
+edges <- C.crocuta.female$interactions[C.crocuta.female$interactions$period == 1989,1:2]
+ids <- C.crocuta.female$contestants[C.crocuta.female$contestants$period == 1989,'id']
+edgelist_to_matrix(edgelist = edges, identities = ids)
+
+
 }

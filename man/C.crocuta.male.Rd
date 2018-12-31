@@ -3,7 +3,7 @@
 \docType{data}
 \name{C.crocuta.male}
 \alias{C.crocuta.male}
-\title{Female spotted hyena dominance data}
+\title{Male spotted hyena dominance data}
 \format{List of 3 elements:
  \describe{
    \item{initial.ranks}{Starting order of males in 1988}
@@ -23,6 +23,6 @@ C.crocuta.male
 Data structures for inferring the ranks of adult male spotted hyenas
 (Crocuta crocuta) from a single social group in the Maasai Mara National
 Reserve in southern Kenya. Data are from the Talek clan collected between
- 1988 and 1995 by the Maasai Mara Hyena Project.
+ 1988 and 1995 by the Mara Hyena Project.
 }
 \keyword{datasets}
