@@ -26,6 +26,8 @@
 #' plot_ranks(female.ranks, type = 'score')
 #' plot_ranks(female.ranks, type = 'stan.rank')
 #' 
+#' @importFrom graphics plot axis lines
+#' 
 #' @export
 
 plot_ranks <- function(ranks, type = c('rank', 'stan.rank', 'score')){

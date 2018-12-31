@@ -8,6 +8,7 @@ add_after_index <- function(index, vec, newrec){
   }
 }
 
+#' @importFrom rlang .data
 add_new_ids_mri <- function(new.ids, working.ranks, contestants, period, periods, ranks){
   new.ids <- contestants[contestants$id %in% new.ids &
                           contestants$period == period,]
@@ -30,7 +31,7 @@ add_new_ids_mri <- function(new.ids, working.ranks, contestants, period, periods
       period.index <- which(periods == period)-1
       mom.index <- NULL
       while(!length(mom.index) & period.index > 0){
-        prev.period.rank <- dplyr::filter(ranks, period == periods[period.index])
+        prev.period.rank <- dplyr::filter(ranks, .data$period == periods[period.index])
         ##If mom was highest ranked, add to front and move to next id
         if(prev.period.rank$id[1] == mom){
           mom.index <- 0
@@ -50,6 +51,7 @@ add_new_ids_mri <- function(new.ids, working.ranks, contestants, period, periods
   return(working.ranks)
 }
 
+#' @importFrom rlang .data
 add_new_ids_tenure <- function(new.ids, working.ranks, contestants, period){
   new.ids <- contestants[contestants$id %in% new.ids &
                            contestants$period == period,]
@@ -61,9 +63,9 @@ add_new_ids_tenure <- function(new.ids, working.ranks, contestants, period){
   conts.this.period <- contestants[contestants$period == period,]
   
   if('convention2' %in% names(conts.this.period)){
-    conts.ordered <- dplyr::arrange(conts.this.period, convention1, desc(convention2))
+    conts.ordered <- dplyr::arrange(conts.this.period, .data$convention1, dplyr::desc(.data$convention2))
   }else{
-    conts.ordered <- dplyr::arrange(conts.this.period, convention1)
+    conts.ordered <- dplyr::arrange(conts.this.period, .data$convention1)
   }
   for(nid in new.ids$id){
     working.ranks <- add_after_index(which(nid == conts.ordered$id)-1, vec = working.ranks,newrec = nid)
@@ -71,6 +73,7 @@ add_new_ids_tenure <- function(new.ids, working.ranks, contestants, period){
   return(working.ranks)
 }
 
+#' @importFrom rlang .data
 add_new_ids_phys_attr <- function(new.ids, working.ranks, contestants, period){
   new.ids <- contestants[contestants$id %in% new.ids &
                            contestants$period == period,]
@@ -82,9 +85,9 @@ add_new_ids_phys_attr <- function(new.ids, working.ranks, contestants, period){
   conts.this.period <- contestants[contestants$period == period,]
   
   if('convention2' %in% names(conts.this.period)){
-    conts.ordered <- dplyr::arrange(conts.this.period, desc(convention1), desc(convention2))
+    conts.ordered <- dplyr::arrange(conts.this.period, dplyr::desc(.data$convention1), dplyr::desc(.data$convention2))
   }else{
-    conts.ordered <- dplyr::arrange(conts.this.period, desc(convention1))
+    conts.ordered <- dplyr::arrange(conts.this.period, dplyr::desc(.data$convention1))
   }
   for(nid in new.ids$id){
     working.ranks <- add_after_index(which(nid == conts.ordered$id)-1, vec = working.ranks,newrec = nid)

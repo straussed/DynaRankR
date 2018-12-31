@@ -93,6 +93,6 @@ moverowcol <- function(X, s, d){
 order_corr <- function(derived, original){
   order_corr_df <- data.frame(ID = row.names(original), OrigRank = seq(1:length(row.names(original))))
   order_corr_df$NewRank <- data.frame(NewRank = seq(1:length(order_corr_df[,1])), row.names = row.names(derived))[row.names(original),]
-  return(cor(x = order_corr_df$OrigRank, y = order_corr_df$NewRank, method = 'spearman'))
+  return(stats::cor(x = order_corr_df$OrigRank, y = order_corr_df$NewRank, method = 'spearman'))
 }
 

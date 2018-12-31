@@ -89,7 +89,8 @@
 #'          were in before updating the order based on observations from current
 #'          study period.}}
 #' 
-#' @import dplyr
+#' @importFrom dplyr "%>%"
+#' @importFrom rlang .data
 #' 
 #' @references Strauss ED & Holekamp KE (in revision). Journal of Animal Ecology.
 #'   
@@ -125,23 +126,23 @@ informed_ds <- function(contestants, convention,
   
   if(is.null(initial.ranks) & convention %in% c('tenure', 'age')){
     if('convention2' %in% names(contestants)){
-      initial.ranks <- filter(contestants, period == periods[1]) %>% 
-        arrange(convention1, desc(convention2)) %>%
-        dplyr::pull(id)
+      initial.ranks <- dplyr::filter(contestants, .data$period == periods[1]) %>% 
+        dplyr::arrange(.data$convention1, dplyr::desc(.data$convention2)) %>%
+        dplyr::pull(.data$id)
     }else{
-      initial.ranks <- filter(contestants, period == periods[1]) %>% 
-        arrange(convention1) %>% 
-        dplyr::pull(id)
+      initial.ranks <- dplyr::filter(contestants, .data$period == periods[1]) %>% 
+        dplyr::arrange(.data$convention1) %>% 
+        dplyr::pull(.data$id)
     }
   }else if(is.null(initial.ranks) & convention %in% c('phys_attr')){
     if('convention2' %in% names(contestants)){
-      initial.ranks <- filter(contestants, period == periods[1]) %>% 
-        arrange(desc(convention1), desc(convention2)) %>%
-        dplyr::pull(id)
+      initial.ranks <- dplyr::filter(contestants, .data$period == periods[1]) %>% 
+        dplyr::arrange(dplyr::desc(.data$convention1), dplyr::desc(.data$convention2)) %>%
+        dplyr::pull(.data$id)
     }else{
-      initial.ranks <- filter(contestants, period == periods[1]) %>% 
-        arrange(desc(convention1)) %>% 
-        dplyr::pull(id)
+      initial.ranks <- dplyr::filter(contestants, .data$period == periods[1]) %>% 
+        dplyr::arrange(dplyr::desc(.data$convention1)) %>% 
+        dplyr::pull(.data$id)
     }
   }
   
@@ -163,14 +164,14 @@ informed_ds <- function(contestants, convention,
   ranks$rank <- NA
   ranks$old.order <- NA
   ranks$score <- NA
-  ranks <- select(ranks, period, id, score, rank, old.order)
+  ranks <- dplyr::select(ranks, .data$period, .data$id, .data$score, .data$rank, .data$old.order)
   
   working.ranks <- initial.ranks
   if(convention == 'none'){
-    working.ranks <- filter(contestants, period == periods[1])$id
+    working.ranks <- dplyr::filter(contestants, .data$period == periods[1])$id
   }
   
-  working.ranks <- working.ranks[working.ranks %in% filter(contestants, period == periods[1])$id]
+  working.ranks <- working.ranks[working.ranks %in% dplyr::filter(contestants, .data$period == periods[1])$id]
     
   
   ##Prep for first period
@@ -191,8 +192,8 @@ informed_ds <- function(contestants, convention,
       }
     }
   
-    new.ids <- filter(contestants, period == current.period, 
-                      !id %in% rownames(current.Dij))$id
+    new.ids <- dplyr::filter(contestants, .data$period == current.period, 
+                      !.data$id %in% rownames(current.Dij))$id
     
     ## Add new ids according to convention
     if(length(new.ids)){
@@ -206,20 +207,20 @@ informed_ds <- function(contestants, convention,
     }
     
     ## Remove dead or emigrated individuals
-    dead <- which(!working.ranks %in% filter(contestants, period == current.period)$id)
+    dead <- which(!working.ranks %in% dplyr::filter(contestants, .data$period == current.period)$id)
     if(length(dead)){working.ranks <- working.ranks[-dead]}
     
-    dead <- which(!rownames(current.Dij) %in% filter(contestants, period == current.period)$id)
+    dead <- which(!rownames(current.Dij) %in% dplyr::filter(contestants, .data$period == current.period)$id)
     if(length(dead)){current.Dij <- current.Dij[-dead,-dead]}
     
     initial.ranks <- working.ranks
     
     ## filter interactions to only those in this period and with these contestants
     intx.matrix <- interactions %>%
-      filter(period %in% current.period,
-             winner %in% working.ranks,
-             loser %in% working.ranks) %>%
-      .[,c(1,2)] %>%
+      dplyr::filter(.data$period %in% current.period,
+             .data$winner %in% working.ranks,
+             .data$loser %in% working.ranks) %>%
+      dplyr::select(names(interactions)[c(1,2)]) %>%
       edgelist_to_matrix(identities = working.ranks)
     
     ids.for.current.Dij <- working.ranks[which(!working.ranks %in% colnames(current.Dij))]
@@ -251,7 +252,7 @@ informed_ds <- function(contestants, convention,
     current.scores <- data.frame(id = working.ranks,
                              normDS = calc_ds(current.Dij),
                              stringsAsFactors = FALSE)
-    current.scores <- arrange(current.scores, desc(normDS))
+    current.scores <- dplyr::arrange(current.scores, dplyr::desc(.data$normDS))
     
     ## save to ranks object
     ranks[ranks$period == current.period,'old.order'] <- initial.ranks
@@ -261,9 +262,9 @@ informed_ds <- function(contestants, convention,
   }
   
   ranks <- ranks %>% 
-    group_by(period) %>% 
-    mutate(stan.rank = -2*(rank-1)/(max(rank)-1) + 1) %>% 
-    select(period, id, score, rank, stan.rank, old.order) %>% 
+    dplyr::group_by(.data$period) %>% 
+    dplyr::mutate(stan.rank = -2*(.data$rank-1)/(max(.data$rank)-1) + 1) %>% 
+    dplyr::select(.data$period, .data$id, .data$score, .data$rank, .data$stan.rank, .data$old.order) %>% 
     as.data.frame()
   
   return(ranks)

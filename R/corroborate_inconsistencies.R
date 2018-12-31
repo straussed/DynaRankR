@@ -1,5 +1,6 @@
-####Corroborate inconsistencies: Must be supported by future observations
+#' @importFrom rlang .data
 corroborate_inconsistencies <- function(intx.matrix, period, interactions, periods){
+  ####Corroborate inconsistencies: Must be supported by future observations
   all.is <- list_inconsistencies(intx.matrix)
   if(is.null(all.is)){invisible(intx.matrix)}
   period.index <- which(periods == period)
@@ -14,7 +15,7 @@ corroborate_inconsistencies <- function(intx.matrix, period, interactions, perio
       all.is <- all.is[-1:-2]
       step.forward <- 1
     }else{
-      check.intx <- dplyr::filter(interactions, winner %in% current.i, loser %in% current.i, period == periods[period.index + step.forward])[,c('winner','loser')]
+      check.intx <- dplyr::filter(interactions, .data$winner %in% current.i, .data$loser %in% current.i, .data$period == periods[period.index + step.forward])[,c('winner','loser')]
       if(!nrow(check.intx)){
         step.forward <- step.forward + 1
       }else if(nrow(check.intx[check.intx$winner == current.i[1] & check.intx$loser == current.i[2],]) == nrow(check.intx[check.intx$winner == current.i[2] & check.intx$loser == current.i[1],])){

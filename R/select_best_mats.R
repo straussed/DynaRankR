@@ -21,8 +21,7 @@ select_best_mats <- function(output, initial_matrix, future_intx, current.period
     #interactions from current study period
     if(length(output_maximum_corr) > 1){
       incons <- lapply(X = output_maximum_corr,
-                       FUN = function(x)(initial_matrix[dimnames(x)[[1]], dimnames(x)[[1]]] %>% 
-                                           .[lower.tri(.)] %>%
+                       FUN = function(x)(initial_matrix[dimnames(x)[[1]], dimnames(x)[[1]]][lower.tri(initial_matrix[dimnames(x)[[1]], dimnames(x)[[1]]])] %>%
                                            sum()))
       
       output_most_consistent <- output_maximum_corr[incons == incons[[which.min(incons)]]]
@@ -30,8 +29,7 @@ select_best_mats <- function(output, initial_matrix, future_intx, current.period
       #interactions from subsequent study period
       if(length(output_most_consistent) > 1){
         future_incons <- lapply(X = output_most_consistent,
-                                FUN = function(x)(future_intx[dimnames(x)[[1]], dimnames(x)[[1]]] %>% 
-                                                    .[lower.tri(.)] %>%
+                                FUN = function(x)(future_intx[dimnames(x)[[1]], dimnames(x)[[1]]][lower.tri(future_intx[dimnames(x)[[1]], dimnames(x)[[1]]])] %>%
                                                     sum()))
         consistent_with_future <- output_most_consistent[future_incons == future_incons[[which.min(future_incons)]]]
         #If more than one MIO remains, randomly select one of the remaining MIOs

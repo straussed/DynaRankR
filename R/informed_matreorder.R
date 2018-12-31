@@ -98,7 +98,8 @@
 #'          study period.}
 #'        }
 #' 
-#' @import dplyr
+#' @importFrom dplyr "%>%"
+#' @importFrom rlang .data
 #' 
 #' @examples female.ranks <- informed_matreorder(contestants = C.crocuta.female$contestants, convention = 'mri',
 #' n = 50, shuffles = 10, require.corroboration = TRUE, 
@@ -128,23 +129,23 @@ informed_matreorder <- function(contestants, convention, n=50, shuffles=10, requ
   
   if(is.null(initial.ranks) & convention %in% c('age', 'tenure')){
     if('convention2' %in% names(contestants)){
-      initial.ranks <- filter(contestants, period == periods[1]) %>% 
-        arrange(convention1, desc(convention2)) %>%
-        dplyr::pull(id)
+      initial.ranks <- dplyr::filter(contestants, .data$period == periods[1]) %>% 
+        dplyr::arrange(.data$convention1, dplyr::desc(.data$convention2)) %>%
+        dplyr::pull(.data$id)
     }else{
-      initial.ranks <- filter(contestants, period == periods[1]) %>% 
-        arrange(convention1) %>% 
-        dplyr::pull(id)
+      initial.ranks <- dplyr::filter(contestants, .data$period == periods[1]) %>% 
+        dplyr::arrange(.data$convention1) %>% 
+        dplyr::pull(.data$id)
     }
   }else if(is.null(initial.ranks) & convention %in% c('phys_attr')){
     if('convention2' %in% names(contestants)){
-      initial.ranks <- filter(contestants, period == periods[1]) %>% 
-        arrange(desc(convention1), desc(convention2)) %>%
-        dplyr::pull(id)
+      initial.ranks <- dplyr::filter(contestants, .data$period == periods[1]) %>% 
+        dplyr::arrange(dplyr::desc(.data$convention1), dplyr::desc(.data$convention2)) %>%
+        dplyr::pull(.data$id)
     }else{
-      initial.ranks <- filter(contestants, period == periods[1]) %>% 
-        arrange(desc(convention1)) %>% 
-        dplyr::pull(id)
+      initial.ranks <- dplyr::filter(contestants, .data$period == periods[1]) %>% 
+        dplyr::arrange(dplyr::desc(.data$convention1)) %>% 
+        dplyr::pull(.data$id)
     }
   }
   
@@ -162,21 +163,19 @@ informed_matreorder <- function(contestants, convention, n=50, shuffles=10, requ
   ranks$id <- NA
   ranks$rank <- NA
   ranks$old.order <- NA
-  ranks <- dplyr::select(ranks, period, id, rank, old.order)
+  ranks <-ranks[,c('period', 'id', 'rank', 'old.order')]
   
   ##First period
   cat(paste0('\nWorking on period ', periods[1],' (1 of ', length(periods), ' periods)'))
   
   ##Ensure no individuals in initial.ranks that aren't in contestants
-  initial.ranks <- initial.ranks[initial.ranks %in% filter(contestants, period == periods[1])$id]
+  initial.ranks <- initial.ranks[initial.ranks %in% dplyr::filter(contestants, .data$period == periods[1])$id]
   
   working.ranks <- initial.ranks
   
 
   ## filter interactions to only those in this period and with these contestants
-  intx.matrix <- interactions %>%
-    filter(period == periods[1]) %>%
-    .[,c(1,2)] %>%
+  intx.matrix <- dplyr::filter(interactions, .data$period == periods[1])[,c(1,2)] %>%
     edgelist_to_matrix(identities = working.ranks)
 
   if(require.corroboration == TRUE){
@@ -187,10 +186,10 @@ informed_matreorder <- function(contestants, convention, n=50, shuffles=10, requ
   
   ## filter interactions from future periods. save as future.intx.matrix
   future.intx.matrix <- interactions %>%
-    filter(period %in% periods[2:length(periods)],
-           winner %in% working.ranks,
-           loser %in% working.ranks) %>%
-    .[,c(1,2)] %>%
+    dplyr::filter(.data$period %in% periods[2:length(periods)],
+                  .data$winner %in% working.ranks,
+                  .data$loser %in% working.ranks) %>%
+    dplyr::select(names(interactions)[c(1,2)]) %>%
     edgelist_to_matrix(identities = working.ranks)
     
   working.ranks <- colnames(i_dist(intx.matrix, n, shuffles, future.intx.matrix, periods[1])[[1]])
@@ -203,8 +202,8 @@ informed_matreorder <- function(contestants, convention, n=50, shuffles=10, requ
   for(current.period in periods[-1]){
     cat(paste0('\nWorking on period ', current.period,' (', which(periods == current.period), ' of ', length(periods), ' periods)'))
     ## Identify new individuals
-    new.ids <- filter(contestants, period == current.period, 
-                      !id %in% working.ranks)$id
+    new.ids <- dplyr::filter(contestants, .data$period == current.period, 
+                      !.data$id %in% working.ranks)$id
     
     ## Add new ids according to convention
     if(length(new.ids)){
@@ -217,17 +216,17 @@ informed_matreorder <- function(contestants, convention, n=50, shuffles=10, requ
     }
     
     ## Remove dead or emigrated individuals
-    dead <- which(!working.ranks %in% filter(contestants, period == current.period)$id)
+    dead <- which(!working.ranks %in% dplyr::filter(contestants, .data$period == current.period)$id)
     if(length(dead)){working.ranks <- working.ranks[-dead]}
     
     initial.ranks <- working.ranks
     
     ## filter interactions to only those in this period and with these contestants
     intx.matrix <- interactions %>%
-      filter(period %in% current.period,
-             winner %in% working.ranks,
-             loser %in% working.ranks) %>%
-      .[,c(1,2)] %>%
+      dplyr::filter(.data$period %in% current.period,
+                    .data$winner %in% working.ranks,
+                    .data$loser %in% working.ranks) %>%
+      dplyr::select(names(interactions)[c(1,2)]) %>%
       edgelist_to_matrix(identities = working.ranks)
     
     if(require.corroboration == TRUE){
@@ -239,10 +238,10 @@ informed_matreorder <- function(contestants, convention, n=50, shuffles=10, requ
     ## filter interactions from future periods. save as future.intx.matrix
     if(current.period != length(periods)){
       future.intx.matrix <- interactions %>%
-        filter(period %in% periods[(which(periods == current.period)+1):length(periods)],
-               winner %in% working.ranks,
-               loser %in% working.ranks) %>%
-        .[,c(1,2)] %>%
+        dplyr::filter(.data$period %in% periods[(which(periods == current.period)+1):length(periods)],
+               .data$winner %in% working.ranks,
+               .data$loser %in% working.ranks) %>%
+        dplyr::select(names(interactions)[c(1,2)]) %>%
         edgelist_to_matrix(identities = working.ranks)
     }else{
       future.intx.matrix <- matrix(data = 0, dimnames = list(working.ranks, working.ranks),
@@ -258,9 +257,9 @@ informed_matreorder <- function(contestants, convention, n=50, shuffles=10, requ
   }
   
   ranks <- ranks %>% 
-    group_by(period) %>% 
-    mutate(stan.rank = -2*(rank-1)/(max(rank)-1) + 1) %>% 
-    select(period, id, rank, stan.rank, old.order) %>% 
+    dplyr::group_by(.data$period) %>% 
+    dplyr::mutate(stan.rank = -2*(.data$rank-1)/(max(.data$rank)-1) + 1) %>% 
+    dplyr::select(.data$period, .data$id, .data$rank, .data$stan.rank, .data$old.order) %>% 
     as.data.frame()
   
   return(ranks)

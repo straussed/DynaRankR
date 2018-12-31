@@ -1,4 +1,4 @@
-#' @importFrom dplyr filter arrange
+#' @importFrom rlang .data
 add_new_ids_mri_elo <- function(new.ids, current.scores, contestants, period, periods, ranks){
   new.scores <- data.frame(id = rep(NA, length(new.ids)), score = rep(NA, length(new.ids)))
   new.ids <- contestants[contestants$id %in% new.ids &
@@ -23,7 +23,7 @@ add_new_ids_mri_elo <- function(new.ids, current.scores, contestants, period, pe
       mom.index <- NULL
       mom.score <- NULL
       while(!length(mom.score) & period.index > 0){
-        prev.period.rank <- filter(ranks, period == periods[period.index])
+        prev.period.rank <- dplyr::filter(ranks, .data$period == periods[period.index])
         mom.score <- prev.period.rank$score[prev.period.rank$id == mom]
         period.index <- period.index - 1
       }
@@ -39,6 +39,7 @@ add_new_ids_mri_elo <- function(new.ids, current.scores, contestants, period, pe
   return(new.scores)
 }
 
+#' @importFrom rlang .data
 add_new_ids_tenure_elo <- function(new.ids, current.scores, contestants, period){
   
   new.scores <- data.frame(id = rep(NA, length(new.ids)), score = rep(NA, length(new.ids)))
@@ -52,19 +53,19 @@ add_new_ids_tenure_elo <- function(new.ids, current.scores, contestants, period)
   conts.this.period <- contestants[contestants$period == period,]
   
   if('convention2' %in% names(conts.this.period)){
-    conts.ordered <- arrange(conts.this.period, convention1, desc(convention2))
+    conts.ordered <- dplyr::arrange(conts.this.period, .data$convention1, dplyr::desc(.data$convention2))
   }else{
-    conts.ordered <- arrange(conts.this.period, convention1)
+    conts.ordered <- dplyr::arrange(conts.this.period, .data$convention1)
   }
   for(nid in new.ids$id){
     prob = 1 - (which(nid == conts.ordered$id)-1)/(nrow(conts.ordered)-1)
     new.scores[which(nid == new.ids$id),]<- c(nid, 
-                                              quantile(current.scores$score, probs = prob))
+                                              stats::quantile(current.scores$score, probs = prob))
   }
   new.scores$score <- as.numeric(new.scores$score)
   return(new.scores)
 }
-
+#' @importFrom rlang .data
 add_new_ids_phys_attr_elo <- function(new.ids, current.scores, contestants, period){
   
   new.scores <- data.frame(id = rep(NA, length(new.ids)), score = rep(NA, length(new.ids)))
@@ -78,14 +79,14 @@ add_new_ids_phys_attr_elo <- function(new.ids, current.scores, contestants, peri
   conts.this.period <- contestants[contestants$period == period,]
   
   if('convention2' %in% names(conts.this.period)){
-    conts.ordered <- arrange(conts.this.period, desc(convention1), desc(convention2))
+    conts.ordered <- dplyr::arrange(conts.this.period, dplyr::desc(.data$convention1), dplyr::desc(.data$convention2))
   }else{
-    conts.ordered <- arrange(conts.this.period, desc(convention1))
+    conts.ordered <- dplyr::arrange(conts.this.period, dplyr::desc(.data$convention1))
   }
   for(nid in new.ids$id){
     prob = 1 - (which(nid == conts.ordered$id)-1)/(nrow(conts.ordered)-1)
     new.scores[which(nid == new.ids$id),]<- c(nid, 
-                                              quantile(current.scores$score, probs = prob))
+                                              stats::quantile(current.scores$score, probs = prob))
   }
   new.scores$score <- as.numeric(new.scores$score)
   return(new.scores)

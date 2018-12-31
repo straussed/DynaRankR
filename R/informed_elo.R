@@ -92,7 +92,8 @@
 #'          were in before updating the order based on observations from current
 #'          study period.}}
 #' 
-#' @import dplyr
+#' @importFrom dplyr "%>%"
+#' @importFrom rlang .data
 #' 
 #' @references Strauss ED & Holekamp KE (in revision). Journal of Animal Ecology.
 #'   
@@ -127,23 +128,23 @@ informed_elo <- function(contestants, convention, K = 200, lambda = 100, initial
   
   if(is.null(initial.ranks) & convention %in% c('age', 'tenure')){
     if('convention2' %in% names(contestants)){
-      initial.ranks <- filter(contestants, period == periods[1]) %>% 
-        arrange(convention1, desc(convention2)) %>%
-        dplyr::pull(id)
+      initial.ranks <- dplyr::filter(contestants, .data$period == periods[1]) %>% 
+        dplyr::arrange(.data$convention1, dplyr::desc(.data$convention2)) %>%
+        dplyr::pull(.data$id)
     }else{
-      initial.ranks <- filter(contestants, period == periods[1]) %>% 
-        arrange(convention1) %>% 
-        dplyr::pull(id)
+      initial.ranks <- dplyr::filter(contestants, .data$period == periods[1]) %>% 
+        dplyr::arrange(.data$convention1) %>% 
+        dplyr::pull(.data$id)
     }
   }else if(is.null(initial.ranks) & convention %in% c('phys_attr')){
     if('convention2' %in% names(contestants)){
-      initial.ranks <- filter(contestants, period == periods[1]) %>% 
-        arrange(desc(convention1), desc(convention2)) %>%
-        dplyr::pull(id)
+      initial.ranks <- dplyr::filter(contestants, .data$period == periods[1]) %>% 
+        dplyr::arrange(dplyr::desc(.data$convention1), dplyr::desc(.data$convention2)) %>%
+        dplyr::pull(.data$id)
     }else{
-      initial.ranks <- filter(contestants, period == periods[1]) %>% 
-        arrange(desc(convention1)) %>% 
-        dplyr::pull(id)
+      initial.ranks <- dplyr::filter(contestants, .data$period == periods[1]) %>% 
+        dplyr::arrange(dplyr::desc(.data$convention1)) %>% 
+        dplyr::pull(.data$id)
     }
   }
   
@@ -166,10 +167,10 @@ informed_elo <- function(contestants, convention, K = 200, lambda = 100, initial
   ranks$rank <- NA
   ranks$old.order <- NA
   ranks$score <- NA
-  ranks <- dplyr::select(ranks, period, id, score, rank, old.order)
+  ranks <- dplyr::select(ranks, .data$period, .data$id, .data$score, .data$rank, .data$old.order)
   
   if(is.null(initial.ranks)){
-    initial.ranks <- filter(contestants, period == periods[1])$id
+    initial.ranks <- dplyr::filter(contestants, .data$period == periods[1])$id
   }
   if(convention == 'none'){
     current.scores <- data.frame(data.frame(id = initial.ranks, score = 0 ,stringsAsFactors = FALSE))
@@ -190,11 +191,11 @@ informed_elo <- function(contestants, convention, K = 200, lambda = 100, initial
     }
     
     intx <- interactions %>%
-      filter(period == current.period) %>%
-      .[,c(1,2)]
+      dplyr::filter(.data$period == current.period) %>%
+      dplyr::select(names(interactions)[c(1,2)])
     
-    new.ids <- filter(contestants, period == current.period, 
-                      !id %in% current.scores$id)$id
+    new.ids <- dplyr::filter(contestants, .data$period == current.period, 
+                      !.data$id %in% current.scores$id)$id
     
     if(length(new.ids)){
       current.scores <-rbind(current.scores, 
@@ -208,7 +209,7 @@ informed_elo <- function(contestants, convention, K = 200, lambda = 100, initial
     }
     current.scores$score <- as.numeric(current.scores$score)
     ## Remove dead or emigrated individuals
-    dead <- which(!current.scores$id %in% filter(contestants, period == current.period)$id)
+    dead <- which(!current.scores$id %in% dplyr::filter(contestants, .data$period == current.period)$id)
     if(length(dead)){current.scores <- current.scores[-dead,]}
     
     ###Check to ensure all individuals in intx for current period are included
@@ -216,8 +217,8 @@ informed_elo <- function(contestants, convention, K = 200, lambda = 100, initial
     intx.no.contestants <- c(intx$winner[!intx$winner %in% current.scores$id],
                              intx$loser[!intx$loser %in% current.scores$id])
     if(length(intx.no.contestants)){
-      intx <- filter(intx, !winner %in% intx.no.contestants, 
-                     !loser %in% intx.no.contestants)
+      intx <- dplyr::filter(intx, !.data$winner %in% intx.no.contestants, 
+                     !.data$loser %in% intx.no.contestants)
     }
       
       for(i in 1:nrow(intx)){
@@ -235,7 +236,7 @@ informed_elo <- function(contestants, convention, K = 200, lambda = 100, initial
         current.scores[current.scores$id == loser,'score'] <- 
           current.scores[current.scores$id == loser,'score'] + K*(0-E_loser)
       }
-    current.scores <- arrange(current.scores, desc(score))
+    current.scores <- dplyr::arrange(current.scores, dplyr::desc(.data$score))
     
     ## save to ranks object
     ranks[ranks$period == current.period,'old.order'] <- initial.ranks
@@ -245,9 +246,9 @@ informed_elo <- function(contestants, convention, K = 200, lambda = 100, initial
   }
   
   ranks <- ranks %>% 
-    group_by(period) %>% 
-    mutate(stan.rank = -2*(rank-1)/(max(rank)-1) + 1) %>% 
-    dplyr::select(period, id, score, rank, stan.rank, old.order) %>% 
+    dplyr::group_by(.data$period) %>% 
+    dplyr::mutate(stan.rank = -2*(.data$rank-1)/(max(.data$rank)-1) + 1) %>% 
+    dplyr::select(.data$period, .data$id, .data$score, .data$rank, .data$stan.rank, .data$old.order) %>% 
     as.data.frame()
   
   return(ranks)
