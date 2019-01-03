@@ -88,7 +88,7 @@
 #' @return Produces a dataframe with the following columns: 
 #'          \describe{
 #'          \item{period}{Study period.}
-#'          \item{id}{Identitity of contestant.}
+#'          \item{id}{Identity of contestant.}
 #'          \item{rank}{Ordinal rank of contestant in study period. Lower numbers
 #'          equal higher rank.}
 #'          \item{stan.rank}{Rank of contestant standardized for group size.

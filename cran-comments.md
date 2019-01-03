@@ -1,5 +1,8 @@
 ####DynaRankR
 
+NOTE: This is a new package submission
+
+
 ##### Test environments
 * local OS X install (Mojave 10.14.2), R 3.5.1
 * win-builder (devel and release)
@@ -8,8 +11,7 @@
 0 errors ✔ | 0 warnings ✔ | 0 notes ✔
 
 ##### R CMD check results on win-builder
-2 NOTES  
-
+3 NOTES  
 
 > ** running examples for arch 'x64' ... [33s] NOTE  
 Examples with CPU or elapsed time > 10s  
