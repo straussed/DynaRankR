@@ -11,15 +11,5 @@ NOTE: This is a new package submission
 0 errors ✔ | 0 warnings ✔ | 0 notes ✔
 
 ##### R CMD check results on win-builder
-3 NOTES  
-
-> ** running examples for arch 'x64' ... [33s] NOTE  
-Examples with CPU or elapsed time > 10s  
-user (22.83) system (0.02) elapsed (22.87)
-  
-> ** running examples for arch 'x64' ... [33s] NOTE  
-Examples with CPU or elapsed time > 10s  
-user (20.94)     system (0)   elapsed  (20.95)
-
-
-These examples can take some time to run, but they only take ~6 seconds on my local machine
+1 NOTE 
+This is a new package submission
