@@ -101,10 +101,14 @@
 #' @importFrom dplyr "%>%"
 #' @importFrom rlang .data
 #' 
-#' @examples female.ranks <- informed_matreorder(contestants = C.crocuta.female$contestants, 
-#' convention = 'mri', n = 5, shuffles = 5, require.corroboration = TRUE, 
+#' @examples 
+#' 
+#' conts <- C.crocuta.female$contestants[C.crocuta.female$contestants$period < 1990,]
+#' intx <- C.crocuta.female$interactions[C.crocuta.female$interactions$period < 1990,]
+#' female.ranks <- informed_matreorder(contestants = conts, 
+#' convention = 'mri', n = 2, shuffles = 5, require.corroboration = TRUE, 
 #' initial.ranks = C.crocuta.female$initial.ranks,
-#' interactions = C.crocuta.female$interactions)
+#' interactions = intx)
 #' 
 #' 
 #' @references Strauss ED & Holekamp KE (in revision). Journal of Animal Ecology.
