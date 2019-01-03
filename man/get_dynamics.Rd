@@ -31,9 +31,9 @@ Calculates hierarchy dynamics from an inferred longitudinal hierarchy,
 returning the provided longitudinal hierarchy with added columns. 
 The function calculates hierarchy dynamics for each individual in each period
 (excluding the first period). Dynamics can be calculated in rank units or 
-score units by secifying the \strong{type} parameter. Rank dynamics are returned as 
+score units by specifying the \strong{type} parameter. Rank dynamics are returned as 
 the total dynamics (delta), active dynamics (delta.active), and passive
-dynamics (delta.passive). Score dynamics are just calculated as delta. 
+dynamics (delta.passive). Score dynamics are calculated as delta. 
 See Strauss & Holekamp (in revision) for more details.
 }
 \examples{

@@ -8,13 +8,13 @@ get_edgelist(mat)
 }
 \arguments{
 \item{mat}{Interaction matrix containing outcomes of interactions. Dimension names
-are interpreted as the individual identities.}
+are interpreted as individual identities.}
 }
 \value{
-A two-column dataframe with winners in first column and losers in the second column.
+A two-column dataframe with winners in the first column and losers in the second column.
 }
 \description{
-This function converts data in an interaction matrix to edgelist format
+This function converts data in an interaction matrix to edgelist format.
 }
 \examples{
 edges <- C.crocuta.female$interactions[C.crocuta.female$interactions$period == 1989,1:2]

@@ -6,7 +6,7 @@ Maintainer: Eli D. Strauss <straussed@gmail.com>
 Description: Provides functions for inferring longitudinal dominance hierarchies, which describe dominance relationships and their dynamics in a single latent hierarchy over time. 
 License: GPL-2
 Encoding: UTF-8
-RoxygenNote: 6.1.0.9000
+RoxygenNote: 6.1.1
 LazyData: true
 Imports:
    dplyr,

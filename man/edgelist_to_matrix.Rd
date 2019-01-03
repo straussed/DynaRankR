@@ -7,7 +7,7 @@
 edgelist_to_matrix(edgelist, identities)
 }
 \arguments{
-\item{edgelist}{A 2-column matrix or dataframe with the identities of winners in the first column and losers in the second column.}
+\item{edgelist}{A two column matrix or dataframe with the identities of winners in the first column and losers in the second column.}
 
 \item{identities}{A list of contestant identities. 
 This list dictates the order in which contestants are arranged in the resulting matrix.}
@@ -17,7 +17,7 @@ Produces an interaction matrix with winners in the rows and losers in the column
         Contestants are arranged according to the order specified by identities.
 }
 \description{
-This function converts data in edgelist format to an interaction matrix
+This function converts data in edgelist format to an interaction matrix.
 }
 \examples{
 edges <- C.crocuta.female$interactions[C.crocuta.female$interactions$period == 1989,1:2]

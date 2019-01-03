@@ -2,14 +2,14 @@
 #'
 #' Use David's Score method to infer a dominance hierarchy over multiple study periods.
 #' New contestants are added according to the convention specified by the user.
-#' Scores are calculated using Dij and normalized.  
+#' Scores are calculated using Dij and are normalized.  
 #' Full description of the addition of new individuals is described
-#' in Strauss & Holekamp (in revision). To run the original David's Scores procedure,
+#' in Strauss & Holekamp (in revision). To run the original David's Score procedure,
 #' use convention flag 'none'. 
 #' 
 #'
 #'@param contestants A dataframe with the identities of the contestants for 
-#'                    each study period along with relevant data for 
+#'                    each study period along with the relevant data for 
 #'                    adding them to the hierarchy. There should be one row per
 #'                    contestant per study period.
 #'                    Periods should appear in chronological order.
@@ -29,10 +29,10 @@
 #' }
 #' @param convention A flag determining how new individuals are added to the
 #'                   hierarchy. The value of this flag influences how the convention1
-#'                   and convention2 columns of the contestants argument are interpreted.
+#'                   and convention2 columns of the \strong{contestants} argument are interpreted.
 #'                   Currently this function supports five options:
 #'                   \describe{
-#'                    \item{none}{The standard David's Score procedure (usig Dij) is run. 
+#'                    \item{none}{The standard David's Score procedure (using Dij) is run. 
 #'                    Individuals are not added according to prior information 
 #'                    and scores are calculated independently for each period.}
 #'                    \item{mri}{New contestants are added to the hierarchy
@@ -45,7 +45,7 @@
 #'                    joining the hierarchy in the same study period.}
 #'                    \item{tenure}{New contestants are added to the hierarchy
 #'                    according their tenure in the group. \strong{convention1} should be a vector of 
-#'                    dates that each contestant joined the group.\strong{convention2} should be an
+#'                    dates on which each contestant joined the group. \strong{convention2} should be an
 #'                    optional vector of numerical data for resolving ties
 #'                    in convention1 (e.g., body size). Higher values are 
 #'                    considered higher rank.}
@@ -57,7 +57,7 @@
 #'                    in convention1 (e.g., body size). Higher values are 
 #'                    considered higher rank.}
 #'                    \item{phys_attr}{New contestants are added to the hierarchy
-#'                    according some physical attribute (larger value = higher rank). 
+#'                    according to some physical attribute (larger value = higher rank). 
 #'                    \strong{convention1} should be a vector of numerical attribute
 #'                    measurements. \strong{convention2} should be an
 #'                    optional vector of numerical data for resolving ties
@@ -66,28 +66,28 @@
 #'                   }
 #' 
 #' @param initial.ranks The initial ordering of individuals for the first study
-#'        period. Required if using maternal rank inheritance as the convention;
+#'        period. Required if using maternal rank inheritance as the convention.
 #'        For other conventions, if initial.ranks is not specified,
 #'         the order determined by convention1 is used to create the initial order. 
 #' 
 #' @param interactions A dataframe of interaction data with the following columns:
 #'         \describe{
-#'          \item{winner}{Identities of winners}
-#'          \item{loser}{Identities of losers}
-#'          \item{period}{Study period in which interactions occurred}}
+#'          \item{winner}{Identities of winners.}
+#'          \item{loser}{Identities of losers.}
+#'          \item{period}{Study period in which interactions occurred.}}
 #' 
-#' @return Produces a dataframe with columnes: 
+#' @return Produces a dataframe with the following columns: 
 #'          \describe{
-#'          \item{period}{Study period}
-#'          \item{id}{Identitity of contestant}
-#'          \item{score}{David's Score of contestant}
+#'          \item{period}{Study period.}
+#'          \item{id}{Identitity of contestant.}
+#'          \item{score}{David's Score of contestant.}
 #'          \item{rank}{Ordinal rank of contestant in study period. Lower numbers
 #'          equal higher rank.}
 #'          \item{stan.rank}{Rank of contestant standardized for group size.
 #'          Values range from 1 (highest rank) to -1 (lowest rank).}
-#'          \item{old.order}{Identity of contestants arranged in the order they
-#'          were in before updating the order based on observations from current
-#'          study period.}}
+#'          \item{old.order}{Identity of contestants arranged in the previous order (the order they
+#'          were in before updating the order based on observations from the current
+#'          study period).}}
 #' 
 #' @importFrom dplyr "%>%"
 #' @importFrom rlang .data

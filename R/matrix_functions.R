@@ -1,8 +1,8 @@
 #' Convert data from edgelist to interaction matrix
 #' 
-#' This function converts data in edgelist format to an interaction matrix
+#' This function converts data in edgelist format to an interaction matrix.
 #' 
-#' @param edgelist A 2-column matrix or dataframe with the identities of winners in the first column and losers in the second column.
+#' @param edgelist A two column matrix or dataframe with the identities of winners in the first column and losers in the second column.
 #' @param identities A list of contestant identities. 
 #'        This list dictates the order in which contestants are arranged in the resulting matrix. 
 #' 
@@ -28,11 +28,11 @@ edgelist_to_matrix <- function(edgelist, identities){
 
 #' Convert data from interaction matrix to edgelist
 #' 
-#' This function converts data in an interaction matrix to edgelist format
+#' This function converts data in an interaction matrix to edgelist format.
 #' 
 #' @param mat Interaction matrix containing outcomes of interactions. Dimension names
-#'        are interpreted as the individual identities. 
-#' @return A two-column dataframe with winners in first column and losers in the second column.
+#'        are interpreted as individual identities. 
+#' @return A two-column dataframe with winners in the first column and losers in the second column.
 #' 
 #' @examples 
 #' edges <- C.crocuta.female$interactions[C.crocuta.female$interactions$period == 1989,1:2]

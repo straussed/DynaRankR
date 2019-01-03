@@ -7,7 +7,7 @@
 #' use convention flag 'none'. 
 #' 
 #' @param contestants A dataframe with the identities of the contestants for 
-#'                    each study period along with relevant data for 
+#'                    each study period along with the relevant data for 
 #'                    adding them to the hierarchy. There should be one row per
 #'                    contestant per study period.
 #'                    Periods should appear in chronological order.
@@ -27,7 +27,7 @@
 #' }
 #' @param convention A flag determining how new individuals are added to the
 #'                   hierarchy. The value of this flag influences how the convention1
-#'                   and convention2 columns of the contestants argument are interpreted.
+#'                   and convention2 columns of the \strong{contestants} argument are interpreted.
 #'                   Currently this function supports five options:
 #'                   \describe{
 #'                    \item{none}{The standard Elo-rating procedure is run. 
@@ -43,7 +43,7 @@
 #'                    joining the hierarchy in the same study period.}
 #'                    \item{tenure}{New contestants are added to the hierarchy
 #'                    according their tenure in the group. \strong{convention1} should be a vector of 
-#'                    dates that each contestant joined the group. \strong{convention2} should be an
+#'                    dates on which each contestant joined the group. \strong{convention2} should be an
 #'                    optional vector of numerical data for resolving ties
 #'                    in convention1 (e.g., body size). Higher values are 
 #'                    considered higher rank.}
@@ -55,49 +55,49 @@
 #'                    in convention1 (e.g., body size). Higher values are 
 #'                    considered higher rank.}
 #'                    \item{phys_attr}{New contestants are added to the hierarchy
-#'                    according some physical attribute (larger value = higher rank). 
+#'                    according to some physical attribute (larger value = higher rank). 
 #'                    \strong{convention1} should be a vector of numerical attribute
 #'                    measurements. \strong{convention2} should be an
 #'                    optional vector of numerical data for resolving ties
 #'                    in convention1. Higher values are 
 #'                    considered higher rank.}
 #'                   }
-#' @param K Parameter that influences the magnitude of score changes after each outcome
+#' @param K Parameter influencing the magnitude of score changes after each outcome.
 #' 
 #' @param lambda Parameter influencing the shape of the logistic function
 #'               linking the difference in score between winner and loser 
 #'               to the expected probability of each contestant winning.
 #' 
 #' @param initial.ranks The initial ordering of individuals for the first study
-#'        period. Required if using maternal rank inheritance as the convention;
+#'        period. Required if using maternal rank inheritance as the convention.
 #'        For other conventions, if initial.ranks is not specified,
 #'         the order determined by convention1 is used to create the initial order. 
 #' 
 #' @param interactions A dataframe of interaction data with the following columns:
 #'         \describe{
-#'          \item{winner}{Identities of winners}
-#'          \item{loser}{Identities of losers}
-#'          \item{period}{Study period in which interactions occurred}}
+#'          \item{winner}{Identities of winners.}
+#'          \item{loser}{Identities of losers.}
+#'          \item{period}{Study period in which interactions occurred.}}
 #' 
-#' @return Produces a dataframe with columnes: 
+#' @return Produces a dataframe with the following columns: 
 #'          \describe{
-#'          \item{period}{Study period}
-#'          \item{id}{Identitity of contestant}
-#'          \item{score}{Elo-rating score of contestant}
+#'          \item{period}{Study period.}
+#'          \item{id}{Identitity of contestant.}
+#'          \item{score}{Elo-rating score of contestant.}
 #'          \item{rank}{Ordinal rank of contestant in study period. Lower numbers
 #'          equal higher rank.}
 #'          \item{stan.rank}{Rank of contestant standardized for group size.
 #'          Values range from 1 (highest rank) to -1 (lowest rank).}
-#'          \item{old.order}{Identity of contestants arranged in the order they
+#'          \item{old.order}{Identity of contestants arranged in the previous order (the order they
 #'          were in before updating the order based on observations from current
-#'          study period.}}
+#'          study period).}}
 #' 
 #' @importFrom dplyr "%>%"
 #' @importFrom rlang .data
 #' 
 #' @references Strauss ED & Holekamp KE (in revision). Journal of Animal Ecology.
 #'   
-#'             Albers PCH & De Vries H (2000). Animal Behavior, 61, 489-495. 
+#'             Albers PCH & de Vries H (2000). Animal Behavior. 
 #'
 #'@examples 
 #' ##Informed elo

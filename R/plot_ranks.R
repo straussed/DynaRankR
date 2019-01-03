@@ -1,18 +1,18 @@
 #' Plot individual ranks or scores
 #' 
-#' Plot ranks of individuals in a single social group over multiple study periods
+#' Plot ranks of individuals in a single social group over multiple study periods.
 #' 
 #' @param ranks A dataframe of ranks. There should be one row per contestant per
 #' study period. Must include at least the following columns:
 #'    \describe{
 #'      \item{period}{Study periods. They should appear in chronological order.}
 #'      \item{id}{The identity of each contestant. Each contestant should appear
-#'      once per study period}
+#'      once per study period.}
 #'      \item{rank}{The rank of each contestant in each study period. This can be
 #'      absolute rank or standardized rank. Only required if \strong{type}
-#'      is 'rank'}
+#'      is 'rank'.}
 #'      \item{score}{The score of each contestant. Only required if \strong{type}
-#'      is 'score'}
+#'      is 'score'.}
 #'    }
 #'  
 #' @param type A character string, either 'score', 'rank', or 'stan.rank'. Determines

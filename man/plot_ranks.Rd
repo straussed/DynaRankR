@@ -12,19 +12,19 @@ study period. Must include at least the following columns:
    \describe{
      \item{period}{Study periods. They should appear in chronological order.}
      \item{id}{The identity of each contestant. Each contestant should appear
-     once per study period}
+     once per study period.}
      \item{rank}{The rank of each contestant in each study period. This can be
      absolute rank or standardized rank. Only required if \strong{type}
-     is 'rank'}
+     is 'rank'.}
      \item{score}{The score of each contestant. Only required if \strong{type}
-     is 'score'}
+     is 'score'.}
    }}
 
 \item{type}{A character string, either 'score', 'rank', or 'stan.rank'. Determines
 whether scores, ranks, or standardized ranks are plotted.}
 }
 \description{
-Plot ranks of individuals in a single social group over multiple study periods
+Plot ranks of individuals in a single social group over multiple study periods.
 }
 \examples{
 female.ranks <- informed_elo(contestants = C.crocuta.female$contestants, convention = 'mri',

@@ -11,7 +11,7 @@
 #' changed from the previous study period.
 #' 
 #' @param contestants A dataframe with the identities of the contestants for 
-#'                    each study period along with relevant data for 
+#'                    each study period along with the relevant data for 
 #'                    adding them to the hierarchy. There should be one row per
 #'                    contestant per study period.
 #'                    Periods should appear in chronological order.
@@ -43,7 +43,7 @@
 #'                    joining the hierarchy in the same study period.}
 #'                    \item{tenure}{New contestants are added to the hierarchy
 #'                    according their tenure in the group. \strong{convention1} should be a vector of 
-#'                    dates that each contestant joined the group.\strong{convention2} should be an
+#'                    dates on which each contestant joined the group. \strong{convention2} should be an
 #'                    optional vector of numerical data for resolving ties
 #'                    in convention1 (e.g., body size). Higher values are 
 #'                    considered higher rank.}
@@ -55,7 +55,7 @@
 #'                    in convention1 (e.g., body size). Higher values are 
 #'                    considered higher rank.}
 #'                    \item{phys_attr}{New contestants are added to the hierarchy
-#'                    according some physical attribute (larger value = higher rank). 
+#'                    according to some physical attribute (larger value = higher rank). 
 #'                    \strong{convention1} should be a vector of numerical attribute
 #'                    measurements. \strong{convention2} should be an
 #'                    optional vector of numerical data for resolving ties
@@ -68,41 +68,41 @@
 #' 
 #' @param require.corroboration A logical indicating whether to require corroborating
 #'        evidence from multiple study periods before changing a contestant's position
-#'        in the order. Useful for reducing the sensitivity of the method to abarrent
+#'        in the order. Useful for reducing the sensitivity of the method to aberrant
 #'        observations that don't reflect a lasting change in the true latent hierarchy.
 #'        If true, evidence indicating a change in status must be corroborated by
 #'        an additional observation in the following periods. See Strauss & Holekamp
 #'        (in revision) for full details. 
 #' 
 #' @param initial.ranks The initial ordering of individuals for the first study
-#'        period. Required if using maternal rank inheritance as the convention;
+#'        period. Required if using maternal rank inheritance as the convention.
 #'        For other conventions, if initial.ranks is not specified,
 #'         the order determined by convention1 is used to create the initial order. 
 #' 
 #' @param interactions A dataframe of interaction data with the following columns:
 #'         \describe{
-#'          \item{winner}{Identities of winners}
-#'          \item{loser}{Identities of losers}
-#'          \item{period}{Study period in which interactions occurred}}
+#'          \item{winner}{Identities of winners.}
+#'          \item{loser}{Identities of losers.}
+#'          \item{period}{Study period in which interactions occurred.}}
 #' 
-#' @return Produces a dataframe with columnes: 
+#' @return Produces a dataframe with the following columns: 
 #'          \describe{
-#'          \item{period}{Study period}
-#'          \item{id}{Identitity of contestant}
+#'          \item{period}{Study period.}
+#'          \item{id}{Identitity of contestant.}
 #'          \item{rank}{Ordinal rank of contestant in study period. Lower numbers
 #'          equal higher rank.}
 #'          \item{stan.rank}{Rank of contestant standardized for group size.
 #'          Values range from 1 (highest rank) to -1 (lowest rank).}
-#'          \item{old.order}{Identity of contestants arranged in the order they
+#'          \item{old.order}{Identity of contestants arranged in the previous order (the order they
 #'          were in before updating the order based on observations from current
-#'          study period.}
+#'          study period).}
 #'        }
 #' 
 #' @importFrom dplyr "%>%"
 #' @importFrom rlang .data
 #' 
-#' @examples female.ranks <- informed_matreorder(contestants = C.crocuta.female$contestants, convention = 'mri',
-#' n = 50, shuffles = 10, require.corroboration = TRUE, 
+#' @examples female.ranks <- informed_matreorder(contestants = C.crocuta.female$contestants, 
+#' convention = 'mri', n = 5, shuffles = 5, require.corroboration = TRUE, 
 #' initial.ranks = C.crocuta.female$initial.ranks,
 #' interactions = C.crocuta.female$interactions)
 #' 

@@ -12,11 +12,11 @@ be supplied as an interaction matrix with identities as the dimension names.
 All identities in order1 must be in order2.}
 
 \item{order2}{The second rank ordering to be compared. Alternatively, this can
-be supplied as an interaction matrixwith identities as the dimension names. 
+be supplied as an interaction matrix with identities as the dimension names. 
 All identities in order2 must be in order1.}
 }
 \value{
-The proportion of dyadic relationship that are shared by the two orders
+The proportion of dyadic relationships that are shared by the two orders.
         This value is 1 if the orders are identical and 0 if the orders are
         exact opposites.
 }
