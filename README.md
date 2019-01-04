@@ -1,6 +1,6 @@
-####DynaRankR
+#### DynaRankR
 
-#####Overview
+##### Overview
 This package provides functions for inferring longitudinal dominance hierarchies, which describe dominance relationships and their dynamics in a single latent hierarchy over time.
 The package includes functions to implement the multiple ranking methods and associated support functions.
 
@@ -15,7 +15,7 @@ The package includes functions to implement the multiple ranking methods and ass
 `C.crocuta.female` Example data from female spotted hyenas  
 `C.crocuta.male` Example data from male spotted hyenas  
 
-#####Usage
+##### Usage
 ```R
 data(C.crocuta.female)
 
