@@ -101,14 +101,10 @@
 #' @importFrom dplyr "%>%"
 #' @importFrom rlang .data
 #' 
-#' @examples \donttest{
-#' 
-#' conts <- C.crocuta.female$contestants[C.crocuta.female$contestants$period < 1990,]
-#' intx <- C.crocuta.female$interactions[C.crocuta.female$interactions$period < 1990,]
-#' female.ranks <- informed_matreorder(contestants = conts, 
-#' convention = 'mri', n = 2, shuffles = 5, require.corroboration = TRUE, 
+#' @examples \dontrun{female.ranks <- informed_matreorder(contestants = C.crocuta.female$contestants, 
+#' convention = 'mri', n =100, shuffles = 10, require.corroboration = TRUE, 
 #' initial.ranks = C.crocuta.female$initial.ranks,
-#' interactions = intx)}
+#' interactions = C.crocuta.female$interactions)}
 #' 
 #' 
 #' @references Strauss ED & Holekamp KE (in revision). Journal of Animal Ecology.

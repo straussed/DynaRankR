@@ -89,7 +89,7 @@ For other conventions, if initial.ranks is not specified,
 Produces a dataframe with the following columns: 
          \describe{
          \item{period}{Study period.}
-         \item{id}{Identitity of contestant.}
+         \item{id}{Identity of contestant.}
          \item{rank}{Ordinal rank of contestant in study period. Lower numbers
          equal higher rank.}
          \item{stan.rank}{Rank of contestant standardized for group size.
@@ -111,10 +111,10 @@ that is most consistent with the data from the current period and is minimally
 changed from the previous study period.
 }
 \examples{
-female.ranks <- informed_matreorder(contestants = C.crocuta.female$contestants, 
-convention = 'mri', n = 5, shuffles = 5, require.corroboration = TRUE, 
+\dontrun{female.ranks <- informed_matreorder(contestants = C.crocuta.female$contestants, 
+convention = 'mri', n =100, shuffles = 10, require.corroboration = TRUE, 
 initial.ranks = C.crocuta.female$initial.ranks,
-interactions = C.crocuta.female$interactions)
+interactions = C.crocuta.female$interactions)}
 
 
 }
