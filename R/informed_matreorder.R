@@ -101,7 +101,7 @@
 #' @importFrom dplyr "%>%"
 #' @importFrom rlang .data
 #' 
-#' @examples \dontrun{female.ranks <- informed_matreorder(contestants = C.crocuta.female$contestants, 
+#' @examples \donttest{female.ranks <- informed_matreorder(contestants = C.crocuta.female$contestants, 
 #' convention = 'mri', n =100, shuffles = 10, require.corroboration = TRUE, 
 #' initial.ranks = C.crocuta.female$initial.ranks,
 #' interactions = C.crocuta.female$interactions)}
