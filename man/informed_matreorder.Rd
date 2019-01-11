@@ -111,10 +111,11 @@ that is most consistent with the data from the current period and is minimally
 changed from the previous study period.
 }
 \examples{
-\dontrun{female.ranks <- informed_matreorder(contestants = C.crocuta.female$contestants, 
-convention = 'mri', n =100, shuffles = 10, require.corroboration = TRUE, 
+conts <- C.crocuta.female$contestants[C.crocuta.female$contestants$period <= 1990,]
+female.ranks <- informed_matreorder(contestants = conts, 
+convention = 'mri', n =1, shuffles = 10, require.corroboration = TRUE, 
 initial.ranks = C.crocuta.female$initial.ranks,
-interactions = C.crocuta.female$interactions)}
+interactions = C.crocuta.female$interactions)
 
 
 }
