@@ -129,6 +129,11 @@ informed_matreorder <- function(contestants, convention, n=50, shuffles=10, requ
     }
   }
   
+  if(!is.null(contestants$convention2) & all(is.na(contestants$convention2))){
+    contestants$convention2 <- as.numeric(contestants$convention2)
+    contestants$convention2 <- as.numeric(contestants$convention2)
+  }
+  
   if(is.null(initial.ranks) & convention %in% c('age', 'tenure')){
     if('convention2' %in% names(contestants)){
       initial.ranks <- dplyr::filter(contestants, .data$period == periods[1]) %>% 
@@ -224,12 +229,18 @@ informed_matreorder <- function(contestants, convention, n=50, shuffles=10, requ
     initial.ranks <- working.ranks
     
     ## filter interactions to only those in this period and with these contestants
-    intx.matrix <- interactions %>%
+    current.intx <- interactions %>%
       dplyr::filter(.data$period %in% current.period,
                     .data$winner %in% working.ranks,
-                    .data$loser %in% working.ranks) %>%
-      dplyr::select(names(interactions)[c(1,2)]) %>%
-      edgelist_to_matrix(identities = working.ranks)
+                    .data$loser %in% working.ranks) 
+    if(nrow(current.intx)){
+      intx.matrix <- current.intx %>%dplyr::select(names(interactions)[c(1,2)]) %>%
+        edgelist_to_matrix(identities = working.ranks)
+    }else{
+      warning('No interaction supplied for period ', current.period)
+      intx.matrix <- matrix(data = 0, dimnames = list(working.ranks, working.ranks),
+                            ncol = length(working.ranks), nrow = length(working.ranks))
+    }
     
     if(require.corroboration == TRUE){
       intx.matrix <- corroborate_inconsistencies(intx.matrix, period = current.period,
@@ -238,12 +249,14 @@ informed_matreorder <- function(contestants, convention, n=50, shuffles=10, requ
     }
     
     ## filter interactions from future periods. save as future.intx.matrix
-    if(current.period != length(periods)){
-      future.intx.matrix <- interactions %>%
-        dplyr::filter(.data$period %in% periods[(which(periods == current.period)+1):length(periods)],
-               .data$winner %in% working.ranks,
-               .data$loser %in% working.ranks) %>%
-        dplyr::select(names(interactions)[c(1,2)]) %>%
+    future.intx <- interactions %>%
+      dplyr::filter(.data$period %in% periods[(which(periods == current.period)+1):length(periods)],
+                    .data$winner %in% working.ranks,
+                    .data$loser %in% working.ranks) %>%
+      dplyr::select(names(interactions)[c(1,2)])
+    
+    if(nrow(future.intx)){
+      future.intx.matrix <- future.intx %>%
         edgelist_to_matrix(identities = working.ranks)
     }else{
       future.intx.matrix <- matrix(data = 0, dimnames = list(working.ranks, working.ranks),
