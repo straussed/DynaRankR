@@ -69,6 +69,9 @@ make_full_matrix <- function(order){
 
 ##List inconsistencies
 list_inconsistencies <- function(mat){
+  if(nrow(mat) < 2){
+    return(c())
+  }
   index_is <- c()
   for(r in 2:length(mat[1,])){
     for(c in 1:(r-1)){
