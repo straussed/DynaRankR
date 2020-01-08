@@ -13,3 +13,4 @@ Imports:
    rlang
 Suggests: 
     testthat	
+URL: https://github.com/straussed/DynaRankR
