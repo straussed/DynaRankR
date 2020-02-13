@@ -4,8 +4,14 @@
 \alias{informed_elo}
 \title{Elo-rating method informed by prior information}
 \usage{
-informed_elo(contestants, convention, K = 200, lambda = 100,
-  initial.ranks = NULL, interactions)
+informed_elo(
+  contestants,
+  convention,
+  K = 200,
+  lambda = 100,
+  initial.ranks = NULL,
+  interactions
+)
 }
 \arguments{
 \item{contestants}{A dataframe with the identities of the contestants for 

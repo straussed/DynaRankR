@@ -4,8 +4,15 @@
 \alias{informed_matreorder}
 \title{Infer longitudinal hierarchy using informed matrix reordering}
 \usage{
-informed_matreorder(contestants, convention, n = 50, shuffles = 10,
-  require.corroboration = FALSE, initial.ranks = NULL, interactions)
+informed_matreorder(
+  contestants,
+  convention,
+  n = 50,
+  shuffles = 10,
+  require.corroboration = FALSE,
+  initial.ranks = NULL,
+  interactions
+)
 }
 \arguments{
 \item{contestants}{A dataframe with the identities of the contestants for 

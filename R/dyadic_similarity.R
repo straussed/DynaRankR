@@ -26,14 +26,14 @@
 #' @export
 #' 
 dyadic_similarity <- function(order1, order2){
-  if(class(order1)[1] == 'matrix'){
+  if('matrix' %in% class(order1)[1]){
     ##Make sure that matrix supplied is square with identical orders
     if(any(dimnames(order1)[[2]] != dimnames(order1)[[1]])){
       stop('matrix supplied has different individuals in rows and columns')
     }
     order1 <- make_full_matrix(dimnames(order1)[[1]])
   }else{order1 <- make_full_matrix(order1)}
-  if(class(order2)[1] == 'matrix'){
+  if('matrix' %in% class(order2)[1]){
     if(any(dimnames(order2)[[2]] != dimnames(order2)[[1]])){
       stop('matrix supplied has different individuals in rows and columns')
     }
